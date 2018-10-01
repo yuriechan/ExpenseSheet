@@ -1,39 +1,43 @@
 <!DOCTYPE html>
 <html>
 <head>
-  <script src = 'index.js'></script>
+  <script src = "index.js"></script>
+  <link rel="stylesheet" href="style.css">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+   <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
 </head>
 
-<div id = 'table'>
-<span id = 'add-table'>➕</span>
-<table>
+<body>
+<table class = 'table'>
+<!-- <span id = 'add-table' class="glyphicon glyphicon-plus"></span> -->
 <tr>
+  <span id = 'add-table' class="glyphicon glyphicon-plus"></span>
   <th>DATE</th>
   <th>NAME</th>
   <th>TYPE</th>
   <th>COST</th>
-  <th>TOTAL</th>
 </tr>
+
 <tr>
-  <th contenteditable="true"></th>
-  <th contenteditable="true"></th>
-  <th contenteditable="true"></th>
-  <th contenteditable="true"></th>
-  <th></th>
+  <td contenteditable="true"></td>
+  <td contenteditable="true"></td>
+  <td contenteditable="true"></td>
+  <td contenteditable="true"></td>
 </tr>
 
 <!-- when add-table btn clicked, this will be cloned -->
 <tr class = 'hide'>
-  <th contenteditable="true"></th>
-  <th contenteditable="true"></th>
-  <th contenteditable="true"></th>
-  <th contenteditable="true"></th>
-  <th></th>
+  <td contenteditable="true"></td>
+  <td contenteditable="true"></td>
+  <td contenteditable="true"></td>
+  <td contenteditable="true"></td>
 </tr>
 
 
 </table>
-</div>
+</body>
 
 
 

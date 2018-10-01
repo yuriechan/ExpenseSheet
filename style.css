@@ -1,0 +1,22 @@
+
+
+/* #add-table{
+  float: right;
+  /* margin-left: 100px; */
+/* } */
+
+.glyphicon {
+    margin-left: 10px;
+    float: left;
+}
+
+
+th,td {
+    padding: 8px;
+    text-align: left;
+    border-bottom: 1px solid #ddd;
+}
+
+table{
+  margin: 100px;
+}
