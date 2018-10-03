@@ -1,22 +1,31 @@
-
-
-/* #add-table{
-  float: right;
-  /* margin-left: 100px; */
-/* } */
-
-.glyphicon {
-    margin-left: 10px;
-    float: left;
+.glyphicon-plus,
+#delete-table{
+    width: 30%;
 }
 
+#delete-table{
+  font-size: 12px;
+}
+
+.glyphicon-plus:hover{
+  color: pink;
+}
 
 th,td {
-    padding: 8px;
-    text-align: left;
-    border-bottom: 1px solid #ddd;
+    text-align: center;
+    border-bottom: 1px solid black;
 }
 
-table{
-  margin: 100px;
+th{
+  width: 100px;
+}
+
+
+input{
+  width: 70%;
+  border-radius: 5px;
+}
+
+button{
+  border-radius: 5px;
 }
