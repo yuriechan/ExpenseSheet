@@ -1,24 +1,14 @@
 $(document).ready(function(){
 var counter = 0;
-  // $(document).on('click', '#add-table', function (){
-  //   $('table').after('<tr><td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input id = "pickdate"/></td><td><input /></td><td><input /></td><td><input /><button id = "delete-table">DELETE</button></td></tr>');
-  // })
-  //
-  // $('#delete-table').click(function (){
-  //   $(this).parents('tr').remove();
-  // })
-  //
-  // $('#pickdate').datepicker();
 
+//btn to add one row
   $(document).on('click','#add-table', function(){
+    //set row number to 1
     var counter = $('table tr').length - 1;
-    alert(counter)
 
     $(document).on('click','#delete-table', function(){
       counter = counter - 1;
-      console.log(counter);
     })
-
 
   var newRow = $('<tr>');
   var cols = '';
@@ -30,15 +20,30 @@ var counter = 0;
   cols += '<td><button type = "button" id = "delete-table">DELETE</button></td>'
 
   newRow.append(cols);
-
   newRow.insertAfter($(this).parents().closest('tr'));
 
   counter = counter + 1;
     })
 
+//btn to delete one row
     $(document).on('click','#delete-table', function(){
       $(this).closest('tr').remove();
+      calculateTotalCost();
     })
 
 
+    $(document).on('change', 'input[name^="cost"]', function(){
+      calculateTotalCost();
+    })
+
   });
+
+    function calculateTotalCost(){
+      var totalCost = 0;
+      $(document).find('input[name^="cost"]').each(function (){
+        totalCost += +$(this).val();
+        console.log(totalCost);
+      })
+
+      $('#total-cost').text('Monthly Total:' + totalCost);
+    }
