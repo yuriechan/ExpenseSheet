@@ -15,8 +15,8 @@ var counter = 0;
 
   cols += '<td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input class = "pickdate"/></td>'
   cols += '<td><input name = "name'+ counter +'"></td>';
-  cols += '<td><input name = "type '+ counter +'"></td>';
-  cols += '<td><input name = "cost '+ counter +'"></td>';
+  cols += '<td><input name = "type' + counter +'" list="hosting-plan" type="text"><datalist id="hosting-plan"><option value="FOOD"/><option value="CLOTHES"/><option value="HEALTH"/></datalist></td>';
+  cols += '<td><input name = "cost'+ counter +'"/></td>';
   cols += '<td><button type = "button" id = "delete-table">DELETE</button></td>'
 
   newRow.append(cols);

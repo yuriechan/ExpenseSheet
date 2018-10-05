@@ -16,9 +16,9 @@ th,td {
     border-bottom: 1px solid black;
 }
 
-th{
+/* th{
   width: 100px;
-}
+} */
 
 
 input{
@@ -32,4 +32,8 @@ button{
 
 .ui-datepicker{
   width: 200px;
+}
+
+.dropdown-toggle{
+
 }
