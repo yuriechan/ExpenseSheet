@@ -29,3 +29,7 @@ input{
 button{
   border-radius: 5px;
 }
+
+.ui-datepicker{
+  width: 200px;
+}

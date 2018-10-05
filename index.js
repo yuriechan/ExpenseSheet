@@ -13,7 +13,7 @@ var counter = 0;
   var newRow = $('<tr>');
   var cols = '';
 
-  cols += '<td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input id = "pickdate"/></td>'
+  cols += '<td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input class = "pickdate"/></td>'
   cols += '<td><input name = "name'+ counter +'"></td>';
   cols += '<td><input name = "type '+ counter +'"></td>';
   cols += '<td><input name = "cost '+ counter +'"></td>';
@@ -25,18 +25,25 @@ var counter = 0;
   counter = counter + 1;
     })
 
+//display calendar when user input date
+    $(document).on('focus','.pickdate', function(){
+      $('.pickdate').datepicker();
+    });
+
 //btn to delete one row
     $(document).on('click','#delete-table', function(){
       $(this).closest('tr').remove();
       calculateTotalCost();
     })
 
-
+//calculate total cost input
     $(document).on('change', 'input[name^="cost"]', function(){
       calculateTotalCost();
     })
 
   });
+
+
 
     function calculateTotalCost(){
       var totalCost = 0;
