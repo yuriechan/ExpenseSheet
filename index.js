@@ -13,11 +13,11 @@ var counter = 0;
   var newRow = $('<tr>');
   var cols = '';
 
-  cols += '<td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input class = "pickdate"/></td>'
+  cols += '<td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input class = "pickdate"/></td>';
   cols += '<td><input name = "name'+ counter +'"></td>';
-  cols += '<td><input name = "type' + counter +'" list="hosting-plan" type="text"><datalist id="hosting-plan"><option value="FOOD"/><option value="CLOTHES"/><option value="HEALTH"/></datalist></td>';
+  cols += '<td><select name = "type'+ counter +'" class="form-control js-example-tags"><option selected="selected">FOOD</option><option>CLOTHES</option><option>HEALTH</option></select></td>';
   cols += '<td><input name = "cost'+ counter +'"/></td>';
-  cols += '<td><button type = "button" id = "delete-table">DELETE</button></td>'
+  cols += '<td><button type = "button" id = "delete-table">DELETE</button></td>';
 
   newRow.append(cols);
   newRow.insertAfter($(this).parents().closest('tr'));
@@ -41,6 +41,15 @@ var counter = 0;
       calculateTotalCost();
     })
 
+//enable custom value in drop down box for TYPE
+    $(".js-example-tags").select2({
+      tags: true
+  });
+    // $(document).on('click', '.js-example-tags', function(){
+    //   $(this).select2({
+    //     tags: true;
+    //   })
+    // })
   });
 
 

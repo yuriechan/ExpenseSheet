@@ -1,6 +1,9 @@
-.glyphicon-plus,
-#delete-table{
-    width: 30%;
+body{
+  text-align: -webkit-center;
+}
+
+.glyphicon-plus:before{
+  margin-right: 8px;
 }
 
 #delete-table{
@@ -16,13 +19,8 @@ th,td {
     border-bottom: 1px solid black;
 }
 
-/* th{
-  width: 100px;
-} */
-
-
 input{
-  width: 70%;
+  width: 85%;
   border-radius: 5px;
 }
 
