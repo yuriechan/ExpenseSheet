@@ -41,6 +41,11 @@ var counter = 0;
       calculateTotalCost();
     })
 
+//calculate total for specific TYPE(ex.FOOD)
+  $(document).on('change', 'span[title^="FOOD"]', function(){
+    calculateTypeFOOD();
+  })
+
 //enable custom value in drop down box for TYPE
     $(".js-example-tags").select2({
       tags: true
@@ -50,16 +55,26 @@ var counter = 0;
     //     tags: true;
     //   })
     // })
-  });
 
+
+
+  });
 
 
     function calculateTotalCost(){
       var totalCost = 0;
       $(document).find('input[name^="cost"]').each(function (){
         totalCost += +$(this).val();
-        console.log(totalCost);
+        //console.log(totalCost);
       })
 
       $('#total-cost').text('Monthly Total:' + totalCost);
     }
+
+    // function calculateTypeFOOD(){
+    //   var totalCost = 0;
+    //   $(document).find('span[title^="FOOD"]').each(function (){
+    //     totalCost += +$(this).val();
+    //     console.log(totalCost);
+    //   })
+    // }
