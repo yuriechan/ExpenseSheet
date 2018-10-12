@@ -1,0 +1,212 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <meta name = "viewport" content="width=device-width, initial-scale=1">
+  <link rel = "stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <script src = "https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js"></script>
+
+  <script type="text/javascript" src="http://ajax.googleapis.com/ajax/libs/jqueryui/1.11.1/jquery-ui.min.js"></script>
+
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
+
+  <script src = "index.js"></script>
+  <link rel = "stylesheet" href="style.css">
+</head>
+
+<body>
+<table>
+<tr>
+  <th>DATE</th>
+  <th>NAME</th>
+  <th>TYPE</th>
+  <th>COST</th>
+</tr>
+
+<tr>
+  <td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input class = "pickdate"/></td>
+  <td><input name = "name1"/></td>
+  <td><select name = "type1" class="form-control js-example-tags">
+    <option selected="selected">FOOD</option>
+    <option>CLOTHES</option>
+    <option>HEALTH</option>
+    </select></td>
+  <td><input name = "cost1"/></td>
+</tr>
+
+<tr>
+  <td id = "total-cost">Monthly Total:</td>
+</tr>
+<tr>
+  <td id = "total-cost">Type Total for FOOD:</td>
+</tr>
+</table>
+
+
+
+
+          <script>
+          function makeApiCall(action = "read") {
+            spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48';
+            range: 'Sheet1';
+
+            if (action == 'write'){
+              var vals = new Array(6);
+              for (var row = 0; row < 6; row++){
+                vals[row] = new Array(3);
+                for (var col = 0; col < 3; col++){
+                  vals[row][col] = document.getElementById(row + ":" + col).value;
+                }
+              }
+              var params = {
+                spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48',  // TODO: Update placeholder value.
+                range: 'Sheet1',  // TODO: Update placeholder value.
+                valueInputOption = 'RAW';  // TODO: Update placeholder value.
+              };
+              //write code here
+
+
+
+            }
+            else {
+              var params = {
+                spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48',  // TODO: Update placeholder value.
+                range: 'Sheet1',  // TODO: Update placeholder value.
+            };
+            var request = gapi.client.sheets.spreadsheets.values.get(params);
+            request.then(function(response) {
+              // TODO: Change code below to process the `response` object:
+              //console.log(response.result);
+              populateSheet(response.result);
+            }, function(reason) {
+              console.error('error: ' + reason.result.error.message);
+            });
+          }
+
+          function initClient() {
+            var API_KEY = 'AIzaSyCIKSE_U4Xpx5AQ5Ve3HqmKvOHaz7_xQyk';  // TODO: Update placeholder with desired API key.
+
+            var CLIENT_ID = '714430751953-5vul5f1cnm4i3ab1eho04fdu8tlq278j.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
+
+            // TODO: Authorize using one of the following scopes:
+            //   'https://www.googleapis.com/auth/drive'
+            //   'https://www.googleapis.com/auth/drive.file'
+            //   'https://www.googleapis.com/auth/drive.readonly'
+            //   'https://www.googleapis.com/auth/spreadsheets'
+            //   'https://www.googleapis.com/auth/spreadsheets.readonly'
+            var SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+
+            gapi.client.init({
+              'apiKey': API_KEY,
+              'clientId': CLIENT_ID,
+              'scope': SCOPE,
+              'discoveryDocs': ['https://sheets.googleapis.com/$discovery/rest?version=v4'],
+            }).then(function() {
+              gapi.auth2.getAuthInstance().isSignedIn.listen(updateSignInStatus);
+              updateSignInStatus(gapi.auth2.getAuthInstance().isSignedIn.get());
+            });
+          }
+
+          function handleClientLoad() {
+            gapi.load('client:auth2', initClient);
+          }
+
+          function updateSignInStatus(isSignedIn) {
+            if (isSignedIn) {
+              makeApiCall();
+            }
+          }
+
+          function handleSignInClick(event) {
+            gapi.auth2.getAuthInstance().signIn();
+          }
+
+          function handleSignOutClick(event) {
+            gapi.auth2.getAuthInstance().signOut();
+          }
+
+// assign value from spreadsheet to each column and row in value attribute
+          // function populateSheet(result){
+          //   for (var row = 0; row < 8; row++){
+          //     for (var col = 0; col < 3; col++){
+          //       // document.getElementById(row+':'+col).value = result.values[row][col];
+          //       // $(#row + ':' + col).attr('value', '"+ row + ':' + col+"') = result.values[row][col];
+          //
+          //       // var valueAttribute = "row +':'+col"
+          //       // valueAttribute = result.values[row][col];
+          //       // $('.dataFromSpreadsheet').attr('value', valueAttribute);
+          //       //console.log(result.values[row][col])
+          //       var dataFromSpreadSheet = result.values[row][col];
+          //       //console.log(dataFromSpreadSheet);
+          //       $(".tableForSpreadsheet").attr("value", dataFromSpreadSheet);
+          //
+          //       // console.log(result.values[row][col] + ' is in row: ' + row + ',column: ' + col);
+          //       // console.log($("#test").value + 'this is the value of input element with test id');
+          //     }
+          //   }
+          // }
+
+          function populateSheet(result){
+            for (var row = 0; row < 8; row++){
+              for (var col = 0; col < 3; col++){
+                var dataFromSpreadSheet = result.values[row][col];
+                //console.log(dataFromSpreadSheet);
+                //$(".tableForSpreadsheet").attr("value", dataFromSpreadSheet);
+                //$(".tableForSpreadsheet").val(dataFromSpreadSheet);
+                //$("input[value = '"+ row + ':' + col+"']") = dataFromSpreadSheet;
+                document.getElementById(row + ':' +col).value = result.values[row][col];
+                //console.log(document.getElementById(row + ':' +col).value)
+              }
+            }
+          }
+
+
+
+
+
+
+          </script>
+
+
+            <script async defer src="https://apis.google.com/js/api.js"
+              onload="this.onload=function(){};handleClientLoad()"
+              onreadystatechange="if (this.readyState === 'complete') this.onload()">
+            </script>
+
+<button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+<button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
+
+
+          <!-- <div style = "margin-left:auto; margin-right:auto; width: 960px;"> -->
+          <script>
+
+ // create table with three column and eight rows, with row:col in id attribute
+
+          for (var row = 0; row < 8; row++){
+
+            var div = $('<div>')
+            div.css("clear", "both")
+            $('body').append(div)
+            for (var col = 0; col < 3; col++){
+              var input = $('<input>',{
+                "class": "tableForSpreadsheet",
+                "type": "text",
+                "id": row + ':' + col,
+                "value": row + ':' + col
+              })
+              .css("float", "left")
+              // .val(row + ':' + col);
+
+              div.append(input);
+            }
+          }
+
+          </script>
+          <!-- </div> -->
+
+
+
+
+</body>
+</html>
