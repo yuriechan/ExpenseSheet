@@ -120,20 +120,45 @@
           }
 
 // assign value from spreadsheet to each column and row in value attribute
+          // function populateSheet(result){
+          //   for (var row = 0; row < 8; row++){
+          //     for (var col = 0; col < 3; col++){
+          //       // document.getElementById(row+':'+col).value = result.values[row][col];
+          //       // $(#row + ':' + col).attr('value', '"+ row + ':' + col+"') = result.values[row][col];
+          //
+          //       // var valueAttribute = "row +':'+col"
+          //       // valueAttribute = result.values[row][col];
+          //       // $('.dataFromSpreadsheet').attr('value', valueAttribute);
+          //       //console.log(result.values[row][col])
+          //       var dataFromSpreadSheet = result.values[row][col];
+          //       //console.log(dataFromSpreadSheet);
+          //       $(".tableForSpreadsheet").attr("value", dataFromSpreadSheet);
+          //
+          //       // console.log(result.values[row][col] + ' is in row: ' + row + ',column: ' + col);
+          //       // console.log($("#test").value + 'this is the value of input element with test id');
+          //     }
+          //   }
+          // }
+
           function populateSheet(result){
             for (var row = 0; row < 8; row++){
               for (var col = 0; col < 3; col++){
-                // document.getElementById(row+':'+col).value = result.values[row][col];
-                $(#row + ':' + col).attr('value', '"+ row + ':' + col+"') = result.values[row][col];
-                // var valueAttribute = "row +':'+col"
-                // valueAttribute = result.values[row][col];
-                // $('.dataFromSpreadsheet').attr('value', valueAttribute);
-
-                console.log(result.values[row][col] + ' is in row: ' + row + ',column: ' + col);
-                console.log($("#test").value + 'this is the value of input element with test id');
+                var dataFromSpreadSheet = result.values[row][col];
+                //console.log(dataFromSpreadSheet);
+                //$(".tableForSpreadsheet").attr("value", dataFromSpreadSheet);
+                //$(".tableForSpreadsheet").val(dataFromSpreadSheet);
+                //$("input[value = '"+ row + ':' + col+"']") = dataFromSpreadSheet;
+                document.getElementById(row + ':' +col).value = result.values[row][col];
+                //console.log(document.getElementById(row + ':' +col).value)
               }
             }
           }
+
+
+
+
+
+
           </script>
 
 
@@ -146,66 +171,29 @@
 <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
 
 
-
-          <!-- <script src = 'index.php'></script> -->
-          <!-- <?php
-          for ($row = 0; $row < 8; $row++){
-            echo "<div style = 'clear:both'>";
-              for ($col = 0; $col < 3; $col++){
-                echo "<input type = 'text' style = 'float:left;' name = '$row:$col' id = '$row:$col'>";
-              }
-            echo "</div>"
-          }
-          ?> -->
           <div style = "margin-left:auto; margin-right:auto; width: 960px;">
-
-          <!-- create table with three column and eight rows, with row:col in id attribute -->
           <script>
-          // for (var row = 0; row < 8; row++){
-          //   document.write("<div style = 'clear:both'>");
-          //    //console.log(row + 'row desu')
-          //     for (var col = 0; col < 3; col++){
-          //       //$('.dataFromSpreadsheet').attr('id', row +':'+col);
-          //       document.write("<input class = 'dataFromSpreadsheet' type = 'text' style = 'float:left' id = '"+ row + ':' + col+"' value = ''>");
-          //        //console.log(col + 'col desu')
-          //     }
-          //   document.write("</div>")
-          // }
 
+ // create table with three column and eight rows, with row:col in id attribute
 
-          // var div = $('<div>')
-          // div.css("clear", "both")
-          // $('body').append(div)
           for (var row = 0; row < 8; row++){
+
             var div = $('<div>')
             div.css("clear", "both")
             $('body').append(div)
             for (var col = 0; col < 3; col++){
               var input = $('<input>',{
-                "class": "dataFromSpreadsheet",
+                "class": "tableForSpreadsheet",
                 "type": "text",
-                "id": row + ':' + col
+                "id": row + ':' + col,
+                "value": row + ':' + col
               })
               .css("float", "left")
-              .val(row + ':' + col);
+              // .val(row + ':' + col);
 
               div.append(input);
             }
           }
-
-
-
-          // for (var row = 0; row < 8; row++){
-          //   document.write("<div style = 'clear:both'>");
-          //    //console.log(row + 'row desu')
-          //     for (var col = 0; col < 3; col++){
-          //       //$('.dataFromSpreadsheet').attr('id', row +':'+col);
-          //       document.write("<input class = 'dataFromSpreadsheet' type = 'text' style = 'float:left' id = '"+ row + ':' + col+"' value = ''>");
-          //        //console.log(col + 'col desu')
-          //     }
-          //   document.write("</div>")
-          // }
-
 
           </script>
           </div>
