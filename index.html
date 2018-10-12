@@ -12,7 +12,6 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
   <script src = "index.js"></script>
-  <!-- <script src="index-API.html"></script> -->
   <link rel = "stylesheet" href="style.css">
 </head>
 
@@ -43,7 +42,6 @@
   <td id = "total-cost">Type Total for FOOD:</td>
 </tr>
 </table>
-
 <input type = 'text' id = 'test' />
 
 
@@ -121,11 +119,16 @@
             gapi.auth2.getAuthInstance().signOut();
           }
 
+// assign value from spreadsheet to each column and row in value attribute
           function populateSheet(result){
             for (var row = 0; row < 8; row++){
               for (var col = 0; col < 3; col++){
                 // document.getElementById(row+':'+col).value = result.values[row][col];
-                $("#test").value = result.values[row][col];
+                $(#row + ':' + col).attr('value', '"+ row + ':' + col+"') = result.values[row][col];
+                // var valueAttribute = "row +':'+col"
+                // valueAttribute = result.values[row][col];
+                // $('.dataFromSpreadsheet').attr('value', valueAttribute);
+
                 console.log(result.values[row][col] + ' is in row: ' + row + ',column: ' + col);
                 console.log($("#test").value + 'this is the value of input element with test id');
               }
@@ -142,7 +145,7 @@
 <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
 <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
 
-          <div style = "margin-left:auto; margin-right:auto; width: 960px;">
+
 
           <!-- <script src = 'index.php'></script> -->
           <!-- <?php
@@ -154,21 +157,56 @@
             echo "</div>"
           }
           ?> -->
+          <div style = "margin-left:auto; margin-right:auto; width: 960px;">
+
+          <!-- create table with three column and eight rows, with row:col in id attribute -->
           <script>
+          // for (var row = 0; row < 8; row++){
+          //   document.write("<div style = 'clear:both'>");
+          //    //console.log(row + 'row desu')
+          //     for (var col = 0; col < 3; col++){
+          //       //$('.dataFromSpreadsheet').attr('id', row +':'+col);
+          //       document.write("<input class = 'dataFromSpreadsheet' type = 'text' style = 'float:left' id = '"+ row + ':' + col+"' value = ''>");
+          //        //console.log(col + 'col desu')
+          //     }
+          //   document.write("</div>")
+          // }
+
+
+          // var div = $('<div>')
+          // div.css("clear", "both")
+          // $('body').append(div)
           for (var row = 0; row < 8; row++){
-            document.write("<div style = 'clear:both'>");
-              for (var col = 0; col < 3; col++){
-                document.write("<input type = 'text' style = 'float:left;' name = 'row:col' id = 'row:col'>")
-              }
-            document.write("</div>")
+            var div = $('<div>')
+            div.css("clear", "both")
+            $('body').append(div)
+            for (var col = 0; col < 3; col++){
+              var input = $('<input>',{
+                "class": "dataFromSpreadsheet",
+                "type": "text",
+                "id": row + ':' + col
+              })
+              .css("float", "left")
+              .val(row + ':' + col);
+
+              div.append(input);
+            }
           }
 
-          for (var row = 0; row < 8; row++){
-            $(body).append("<div style = 'clear:both'>");
-              for (var col = 0; col < 3; col++){
-                $(body).append()
-              }
-          }
+
+
+          // for (var row = 0; row < 8; row++){
+          //   document.write("<div style = 'clear:both'>");
+          //    //console.log(row + 'row desu')
+          //     for (var col = 0; col < 3; col++){
+          //       //$('.dataFromSpreadsheet').attr('id', row +':'+col);
+          //       document.write("<input class = 'dataFromSpreadsheet' type = 'text' style = 'float:left' id = '"+ row + ':' + col+"' value = ''>");
+          //        //console.log(col + 'col desu')
+          //     }
+          //   document.write("</div>")
+          // }
+
+
           </script>
           </div>
 
