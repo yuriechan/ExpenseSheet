@@ -62,12 +62,16 @@
               var params = {
                 spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48',  // TODO: Update placeholder value.
                 range: 'Sheet1',  // TODO: Update placeholder value.
-                valueInputOption = 'RAW';  // TODO: Update placeholder value.
+                valueInputOption : 'RAW'  // TODO: Update placeholder value.
               };
               //write code here
-
-
-
+              var valueRangeBody = {"values": vals};
+              var request = gapi.client.sheets.spreadsheets.values.update(params,valueRangeBody);
+              request.then(function(response){
+                console.log(response.result);
+              }, function(reason){
+                console.error('error: ' + reason.result.error.message);
+              });
             }
             else {
               var params = {
@@ -82,7 +86,7 @@
             }, function(reason) {
               console.error('error: ' + reason.result.error.message);
             });
-          }
+          }}
 
           function initClient() {
             var API_KEY = 'AIzaSyCIKSE_U4Xpx5AQ5Ve3HqmKvOHaz7_xQyk';  // TODO: Update placeholder with desired API key.
@@ -95,7 +99,7 @@
             //   'https://www.googleapis.com/auth/drive.readonly'
             //   'https://www.googleapis.com/auth/spreadsheets'
             //   'https://www.googleapis.com/auth/spreadsheets.readonly'
-            var SCOPE = 'https://www.googleapis.com/auth/spreadsheets.readonly';
+            var SCOPE = 'https://www.googleapis.com/auth/spreadsheets';
 
             gapi.client.init({
               'apiKey': API_KEY,
@@ -126,26 +130,11 @@
             gapi.auth2.getAuthInstance().signOut();
           }
 
+          function handleSaveClick() {
+            makeApiCall(action="write");
+          }
+
 // assign value from spreadsheet to each column and row in value attribute
-          // function populateSheet(result){
-          //   for (var row = 0; row < 8; row++){
-          //     for (var col = 0; col < 3; col++){
-          //       // document.getElementById(row+':'+col).value = result.values[row][col];
-          //       // $(#row + ':' + col).attr('value', '"+ row + ':' + col+"') = result.values[row][col];
-          //
-          //       // var valueAttribute = "row +':'+col"
-          //       // valueAttribute = result.values[row][col];
-          //       // $('.dataFromSpreadsheet').attr('value', valueAttribute);
-          //       //console.log(result.values[row][col])
-          //       var dataFromSpreadSheet = result.values[row][col];
-          //       //console.log(dataFromSpreadSheet);
-          //       $(".tableForSpreadsheet").attr("value", dataFromSpreadSheet);
-          //
-          //       // console.log(result.values[row][col] + ' is in row: ' + row + ',column: ' + col);
-          //       // console.log($("#test").value + 'this is the value of input element with test id');
-          //     }
-          //   }
-          // }
 
           function populateSheet(result){
             for (var row = 0; row < 8; row++){
@@ -160,12 +149,6 @@
               }
             }
           }
-
-
-
-
-
-
           </script>
 
 
@@ -176,7 +159,7 @@
 
 <button id="signin-button" onclick="handleSignInClick()">Sign in</button>
 <button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-
+<button id="save-button" onclick="handleSaveClick()">Save</button>
 
           <!-- <div style = "margin-left:auto; margin-right:auto; width: 960px;"> -->
           <script>
