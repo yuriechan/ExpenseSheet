@@ -2,21 +2,30 @@ body{
   text-align: -webkit-center;
 }
 
+.glyphicon{
+  display: inline-flex;
+  float:left;
+}
+
 .glyphicon-plus:before{
   margin-right: 8px;
 }
 
-#delete-table{
+/* #delete-table{
   font-size: 12px;
-}
+} */
 
 .glyphicon-plus:hover{
   color: pink;
 }
 
-th,td {
+/* th,td {
     text-align: center;
     border-bottom: 1px solid black;
+} */
+div{
+  margin-left: 39px;
+  float:left;
 }
 
 input{
@@ -28,10 +37,21 @@ button{
   border-radius: 5px;
 }
 
-.ui-datepicker{
+/* .ui-datepicker{
   width: 200px;
 }
 
 .dropdown-toggle{
 
+} */
+
+ul{
+  list-style: none;
+}
+li{
+  float:left;
+  margin-right: 55px;
+}
+.add-table{
+  margin: none;
 }

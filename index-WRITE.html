@@ -11,40 +11,29 @@
   <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
   <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
-  <script src = "index.js"></script>
+  <!-- <script src = "index.js"></script> -->
   <link rel = "stylesheet" href="style.css">
+  <!-- <script src = "googleApi.js"></script> -->
+
+
+  <script async defer src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
 </head>
 
 <body>
-<table>
-<tr>
-  <th>DATE</th>
-  <th>NAME</th>
-  <th>TYPE</th>
-  <th>COST</th>
-</tr>
+<button id="signin-button" onclick="handleSignInClick()">Sign in</button>
+<button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
+<button id="save-button" onclick="handleSaveClick()">Save</button>
 
-<tr>
-  <td><span id = "add-table" class="glyphicon glyphicon-plus"></span><input class = "pickdate"/></td>
-  <td><input name = "name1"/></td>
-  <td><select name = "type1" class="form-control js-example-tags">
-    <option selected="selected">FOOD</option>
-    <option>CLOTHES</option>
-    <option>HEALTH</option>
-    </select></td>
-  <td><input name = "cost1"/></td>
-</tr>
-
-<tr>
-  <td id = "total-cost">Monthly Total:</td>
-</tr>
-<tr>
-  <td id = "total-cost">Type Total for FOOD:</td>
-</tr>
-</table>
-
-
-
+<ul>
+<li><span id = "add-row" class="glyphicon glyphicon-plus"></span></li>
+<li>Date</li>
+<li>Name</li>
+<li>Type</li>
+<li>Cost</li>
+</ul>
 
           <script>
           function makeApiCall(action = "read") {
@@ -54,8 +43,8 @@
             if (action == 'write'){
               var vals = new Array(6);
               for (var row = 0; row < 6; row++){
-                vals[row] = new Array(3);
-                for (var col = 0; col < 3; col++){
+                vals[row] = new Array(4);
+                for (var col = 0; col < 4; col++){
                   vals[row][col] = document.getElementById(row + ":" + col).value;
                 }
               }
@@ -128,68 +117,94 @@
 
           function handleSignOutClick(event) {
             gapi.auth2.getAuthInstance().signOut();
+            //console.log('signout')
           }
 
           function handleSaveClick() {
             makeApiCall(action="write");
           }
 
-// assign value from spreadsheet to each column and row in value attribute
+          // assign value from spreadsheet to each column and row to its value attribute
 
           function populateSheet(result){
             for (var row = 0; row < 8; row++){
-              for (var col = 0; col < 3; col++){
+              for (var col = 0; col < 4; col++){
                 var dataFromSpreadSheet = result.values[row][col];
-                //console.log(dataFromSpreadSheet);
-                //$(".tableForSpreadsheet").attr("value", dataFromSpreadSheet);
-                //$(".tableForSpreadsheet").val(dataFromSpreadSheet);
-                //$("input[value = '"+ row + ':' + col+"']") = dataFromSpreadSheet;
+                console.log(dataFromSpreadSheet);
                 document.getElementById(row + ':' +col).value = result.values[row][col];
-                //console.log(document.getElementById(row + ':' +col).value)
+                //$("input[value = "row + '+' + col"]").val(result.values[row][col]);
               }
             }
           }
-          </script>
+
+          //add one row then plus btn clicked
+            $(document).ready(function(){
+
+              $(document).on('click','#add-row', function(){
+                  var rowCounter = $('div').length;
+
+                  var div = $('<div>',{
+                  "id" : rowCounter
+                  })
+                  .css("clear", "both")
+                  $('body').append(div)
+
+                  var span = $('<span>',{
+                    "id": "add-row",
+                    "class": "glyphicon glyphicon-plus"
+                  })
+                  $(div).append(span)
 
 
-            <script async defer src="https://apis.google.com/js/api.js"
-              onload="this.onload=function(){};handleClientLoad()"
-              onreadystatechange="if (this.readyState === 'complete') this.onload()">
-            </script>
+                  for (var col = 0; col < 4; col++){
+                    if (col == '0'){
+                      var input = $('<input>',{
+                        "class": "tableForSpreadsheet",
+                        "type": "text",
+                        "id": rowCounter + ':' + col + " datepick",
+                        "value": rowCounter + ':' + col
+                      })
+                    }
+                    else {
+                      var input = $('<input>',{
+                        "class": "tableForSpreadsheet",
+                        "type": "text",
+                        "id": rowCounter + ':' + col,
+                        "value": rowCounter + ':' + col
+                      })
+                    }
+                    input.css("float", "left");
+                    div.append(input);
+                  }
+                  //add delete btn
+                  var deleteBtn = $('<button>',{
+                    "type": "button",
+                    "id": "delete-row"
+                  })
+                  deleteBtn.text("DELETE");
+                  div.append(deleteBtn);
 
-<button id="signin-button" onclick="handleSignInClick()">Sign in</button>
-<button id="signout-button" onclick="handleSignOutClick()">Sign out</button>
-<button id="save-button" onclick="handleSaveClick()">Save</button>
+                  div.insertAfter($(this).parents().closest('div'));
 
-          <!-- <div style = "margin-left:auto; margin-right:auto; width: 960px;"> -->
-          <script>
+                  //display calendar when user input date       //not working
+                  var pickDate = $("input[class = 'tableForSpreadsheet']");
+                  $(document).on('focus', pickDate, function(){
+                    console.log("you clicked input datepick")
+                    //pickDate.css("border","1px solid black")
+                    //pickDate.datepicker();
+                  })
 
- // create table with three column and eight rows, with row:col in id attribute
+                  //delete one row when delete btn clicked       //not working
+                  $(document).on('click', '#delete-row', function(){
+                    $(this).closest('input').remove();
+                  })
 
-          for (var row = 0; row < 8; row++){
+                  //calculate total cost for specific type
 
-            var div = $('<div>')
-            div.css("clear", "both")
-            $('body').append(div)
-            for (var col = 0; col < 3; col++){
-              var input = $('<input>',{
-                "class": "tableForSpreadsheet",
-                "type": "text",
-                "id": row + ':' + col,
-                "value": row + ':' + col
               })
-              .css("float", "left")
-              // .val(row + ':' + col);
-
-              div.append(input);
-            }
-          }
+            })
 
           </script>
-          <!-- </div> -->
-
-
-
 
 </body>
 </html>
