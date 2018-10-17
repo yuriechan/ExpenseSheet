@@ -1,6 +1,6 @@
 
 // function makeApiCall(action = "read") {
-//   spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48';
+//   spreadsheetId: '';
 //   range: 'Sheet1';
 //
 //   if (action == 'write'){
@@ -12,7 +12,7 @@
 //       }
 //     }
 //     var params = {
-//       spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48',  // TODO: Update placeholder value.
+//       spreadsheetId: '',  // TODO: Update placeholder value.
 //       range: 'Sheet1',  // TODO: Update placeholder value.
 //       valueInputOption : 'RAW'  // TODO: Update placeholder value.
 //     };
@@ -27,7 +27,7 @@
 //   }
 //   else {
 //     var params = {
-//       spreadsheetId: '1u78721qdi7iKUmJV7RvqNIJ6_mpKXPonJjv1S3BDn48',  // TODO: Update placeholder value.
+//       spreadsheetId: '',  // TODO: Update placeholder value.
 //       range: 'Sheet1',  // TODO: Update placeholder value.
 //   };
 //   var request = gapi.client.sheets.spreadsheets.values.get(params);
@@ -41,9 +41,9 @@
 // }}
 //
 // function initClient() {
-//   var API_KEY = 'AIzaSyCIKSE_U4Xpx5AQ5Ve3HqmKvOHaz7_xQyk';  // TODO: Update placeholder with desired API key.
+//   var API_KEY = '';  // TODO: Update placeholder with desired API key.
 //
-//   var CLIENT_ID = '714430751953-5vul5f1cnm4i3ab1eho04fdu8tlq278j.apps.googleusercontent.com';  // TODO: Update placeholder with desired client ID.
+//   var CLIENT_ID = '';  // TODO: Update placeholder with desired client ID.
 //
 //   // TODO: Authorize using one of the following scopes:
 //   //   'https://www.googleapis.com/auth/drive'
