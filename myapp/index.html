@@ -71,28 +71,61 @@ $(document).ready(function(){
 
   $('#input_submit').on('click', function(){
 
-    let counter = 0;
-    console.log(counter)
+    let counter = $('.output_wrapper').length;
     let outputWrapper = $('<div class="row output_wrapper">');
     let cols = '';
+    //let dateinput = '';
 
-    cols +='<div class="col" id="input_date'+ counter +'"><input type="text" class="form-control'+ counter +'"  placeholder="Date"></div>';
-    cols +='<div class="col-4" id="input_description'+ counter +'"><input type="text" class="form-control'+ counter +'" placeholder="Description"></div>';
-    cols +='<div class="col" id="input_value'+ counter +'"><input type="text" class="form-control'+ counter +'" placeholder="Value"></div>';
+    let first_col = $('<div class="col" id="input_date_'+ counter +'">');
+    let second_col = $('<div class="col-6" id="input_description_'+ counter +'">');
+    let third_col = $('<div class="col" id="input_value_'+ counter +'">');
 
-    //newWrapper.append(cols);
-    //newContainer.append(newWrapper);
-    //$('#output_container').append(outputWrapper);
-    counter = counter + 1;
-    console.log(counter)
+    //outputWrapper.append(cols);
+
+    for (let col = 0; col < 3; col++){
+      if (col =='0') {
+        let date_input = $('<input>', {
+          "type" : "text",
+          "class" : "form-control",
+          "placeholder" : "Date",
+          "id" : counter + ':' + col
+        })
+        first_col.append(date_input);
+        outputWrapper.append(first_col);
+      }
+      else if (col == '1') {
+        let description_input = $('<input>', {
+          "type" : "text",
+          "class" : "form-control",
+          "placeholder" : 'Description',
+          "id" : counter + ':' + col
+        })
+        second_col.append(description_input);
+        outputWrapper.append(second_col);
+      }
+      else if (col = '2') {
+        let value_input = $('<input>', {
+          "type" : "text",
+          "class" : "form-control",
+          "placeholder" : "Value",
+          "id" : counter + ':' + col
+        })
+        third_col.append(value_input);
+        outputWrapper.append(third_col);
+      }
+    }
 
     $('#output_container').append(outputWrapper);
-    outputWrapper.append(cols);
 
+
+
+    // $('')
+
+
+    counter = counter + 1;
 
   });
 
-  //console.log('test')
 });
 
 
