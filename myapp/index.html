@@ -42,13 +42,13 @@
   <div class="container" id="input_container">
     <div class="row input_wrapper">
       <div class="col" id="input_date">
-        <input type="text" class="form-control"  placeholder="Date">
+        <input type="text" class="form-control input_user_date" placeholder="Date">
       </div>
       <div class="col-4" id="input_description">
-        <input type="text" class="form-control" placeholder="Description">
+        <input type="text" class="form-control input_user_description" placeholder="Description">
       </div>
       <div class="col" id="input_value">
-        <input type="text" class="form-control" placeholder="Value">
+        <input type="text" class="form-control input_user_value" placeholder="Value">
       </div>
       <div class="col" id="input_submit">
         <button type="button" class="btn btn-outline-primary">Submit</button>
@@ -74,13 +74,15 @@ $(document).ready(function(){
     let counter = $('.output_wrapper').length;
     let outputWrapper = $('<div class="row output_wrapper">');
     let cols = '';
-    //let dateinput = '';
 
     let first_col = $('<div class="col" id="input_date_'+ counter +'">');
     let second_col = $('<div class="col-6" id="input_description_'+ counter +'">');
     let third_col = $('<div class="col" id="input_value_'+ counter +'">');
 
-    //outputWrapper.append(cols);
+    //console.log($('.form-control').val());
+    let date_val = $('.input_user_date').val()
+    let description_val = $('.input_user_description').val()
+    let value_val = $('.input_user_value')
 
     for (let col = 0; col < 3; col++){
       if (col =='0') {
@@ -88,7 +90,8 @@ $(document).ready(function(){
           "type" : "text",
           "class" : "form-control",
           "placeholder" : "Date",
-          "id" : counter + ':' + col
+          "id" : counter + ':' + col,
+          "value" : date_val.val()
         })
         first_col.append(date_input);
         outputWrapper.append(first_col);
@@ -98,7 +101,8 @@ $(document).ready(function(){
           "type" : "text",
           "class" : "form-control",
           "placeholder" : 'Description',
-          "id" : counter + ':' + col
+          "id" : counter + ':' + col,
+          "value" : description_val.val()
         })
         second_col.append(description_input);
         outputWrapper.append(second_col);
@@ -108,7 +112,8 @@ $(document).ready(function(){
           "type" : "text",
           "class" : "form-control",
           "placeholder" : "Value",
-          "id" : counter + ':' + col
+          "id" : counter + ':' + col,
+          "value" : value_val.val()
         })
         third_col.append(value_input);
         outputWrapper.append(third_col);
@@ -116,11 +121,7 @@ $(document).ready(function(){
     }
 
     $('#output_container').append(outputWrapper);
-
-
-
-    // $('')
-
+    $('.input_user_date').val('');
 
     counter = counter + 1;
 
