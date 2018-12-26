@@ -25,8 +25,8 @@
   <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <!-- Select2 4.0.6 -->
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
 
 </head>
 <body>
@@ -43,6 +43,11 @@
     <div class="row input_wrapper">
       <div class="col" id="input_date">
         <input type="text" class="form-control input_user_date" placeholder="Date">
+      </div>
+      <div class="col" id="input_category">
+        <select class="form-control input_user_category">
+          <option selected="selected">Category</option>
+        </select>
       </div>
       <div class="col-4" id="input_description">
         <input type="text" class="form-control input_user_description" placeholder="Description">
@@ -68,6 +73,15 @@
 
 $(document).ready(function(){
 
+  //dynamic option creation
+  // $('.js-example-tags').select2({
+  //   tags: true
+  // });
+
+  $(".input_user_category").select2({
+  tags: true
+  });
+
 
   $('#input_submit').on('click', function(){
 
@@ -79,9 +93,8 @@ $(document).ready(function(){
     let second_col = $('<div class="col-6" id="input_description_'+ counter +'">');
     let third_col = $('<div class="col" id="input_value_'+ counter +'">');
 
-    //console.log($('.form-control').val());
-    let date_val = $('.input_user_date').val()
-    let description_val = $('.input_user_description').val()
+    let date_val = $('.input_user_date')
+    let description_val = $('.input_user_description')
     let value_val = $('.input_user_value')
 
     for (let col = 0; col < 3; col++){
@@ -126,6 +139,15 @@ $(document).ready(function(){
     counter = counter + 1;
 
   });
+
+//submit with enter key
+  $('.btn-outline-primary').keyup((event)=>{
+    if (event.keyCode === 13) {
+      this.click();
+    }
+  })
+
+
 
 });
 
