@@ -80,6 +80,7 @@ $(document).ready(function(){
 
   $('#input_submit').on('click', function(){
 
+    $('.input_user_date').focus();
 
     let counter = $('.output_wrapper').length;
     let outputWrapper = $('<div class="row output_wrapper">');
@@ -90,10 +91,12 @@ $(document).ready(function(){
     let third_col = $('<div class="col-6" id="input_description_'+ counter +'">');
     let fourth_col = $('<div class="col" id="input_value_'+ counter +'">');
 
-    let date_val = $('.input_user_date')
-    let category_val = $('.input_user_category')
-    let description_val = $('.input_user_description')
-    let value_val = $('.input_user_value')
+    let date_val = $('.input_user_date');
+    let category_val = $('.input_user_category');
+    let description_val = $('.input_user_description');
+    let value_val = $('.input_user_value');
+
+    category_val.val('');
 
     for (let col = 0; col < 4; col++){
       if (col =='0') {
@@ -112,6 +115,7 @@ $(document).ready(function(){
           "type" : "text",
           "class" : "form-control",
           "placeholder" : "Category",
+          "name" : "selected_category",
           "id" : counter + ':' + col,
           "value" : category_val.val()
         })
@@ -144,13 +148,12 @@ $(document).ready(function(){
     }
 
     $('#output_container').append(outputWrapper);
+    counter = counter + 1;
 
     date_val.val('');
     category_val.val('');
     description_val.val('');
     value_val.val('');
-
-    counter = counter + 1;
 
     calculateTotalCost();
   });
@@ -187,6 +190,9 @@ function calculateTotalCost(){
 //   console.log(totalExpense);
 // }
 
+// if (category_val.val() !== "Category") {
+//     category_val.val('');
+//   }
 
 </script>
 
