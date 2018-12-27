@@ -12,10 +12,6 @@
   <!-- Bootstrap css 4.0.0 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- jQuery 3.2.1 -->
-  <!-- <script
-  src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
-  integrity="sha256-3edrmyuQ0w65f8gfBsqowzjJe2iM6n0nKciPUp8y+7E="
-  crossorigin="anonymous"></script> -->
   <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
   <!-- Popper js  1.12.9 -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
@@ -32,9 +28,11 @@
 <body>
 
   <header>
-    <div class="container">
+    <div class="container" id="calculation_container">
       <div class="row header_wrapper">
-
+        <div class="col-3 offset-4" id="total_expense">
+          <input type="text" class="form-control expense_all" placeholder="Total Amount">
+        </div>
       </div>
     </div>
   </header>
@@ -90,14 +88,16 @@ $(document).ready(function(){
     let cols = '';
 
     let first_col = $('<div class="col" id="input_date_'+ counter +'">');
-    let second_col = $('<div class="col-6" id="input_description_'+ counter +'">');
-    let third_col = $('<div class="col" id="input_value_'+ counter +'">');
+    let second_col = $('<div class="col" id="input_category_'+ counter +'">');
+    let third_col = $('<div class="col-6" id="input_description_'+ counter +'">');
+    let fourth_col = $('<div class="col" id="input_value_'+ counter +'">');
 
     let date_val = $('.input_user_date')
+    let category_val = $('.input_user_category')
     let description_val = $('.input_user_description')
     let value_val = $('.input_user_value')
 
-    for (let col = 0; col < 3; col++){
+    for (let col = 0; col < 4; col++){
       if (col =='0') {
         let date_input = $('<input>', {
           "type" : "text",
@@ -110,6 +110,17 @@ $(document).ready(function(){
         outputWrapper.append(first_col);
       }
       else if (col == '1') {
+        let category_input = $('<input>', {
+          "type" : "text",
+          "class" : "form-control",
+          "placeholder" : "Category",
+          "id" : counter + ':' + col,
+          "value" : category_val.val()
+        })
+        second_col.append(category_input);
+        outputWrapper.append(second_col);
+      }
+      else if (col == '2') {
         let description_input = $('<input>', {
           "type" : "text",
           "class" : "form-control",
@@ -117,10 +128,10 @@ $(document).ready(function(){
           "id" : counter + ':' + col,
           "value" : description_val.val()
         })
-        second_col.append(description_input);
-        outputWrapper.append(second_col);
+        third_col.append(description_input);
+        outputWrapper.append(third_col);
       }
-      else if (col = '2') {
+      else if (col = '3') {
         let value_input = $('<input>', {
           "type" : "text",
           "class" : "form-control",
@@ -128,8 +139,8 @@ $(document).ready(function(){
           "id" : counter + ':' + col,
           "value" : value_val.val()
         })
-        third_col.append(value_input);
-        outputWrapper.append(third_col);
+        fourth_col.append(value_input);
+        outputWrapper.append(fourth_col);
       }
     }
 
@@ -137,21 +148,31 @@ $(document).ready(function(){
     $('.input_user_date').val('');
 
     counter = counter + 1;
-
+    console.log('key up -2')
   });
 
 //submit with enter key
-  $('.btn-outline-primary').keyup((event)=>{
+  $('#input_submit').keyup((event)=>{
     if (event.keyCode === 13) {
-      this.click();
+      //this.click();     //error but works
+      $('.btn-outline-primary').click();
+      console.log('key up -1')
     }
   })
-
-
 
 });
 
 
+const calculateTotalExpense = () => {
+  let totalExpense = 0;
+  $(document).find('input[placeholder^="Value"]').each(
+    function (){
+      totalExpense += +$(this).val();
+  })
+  console.log(totalExpense);
+}
+
+calculateTotalExpense();
 
 </script>
 
