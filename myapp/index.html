@@ -71,17 +71,15 @@
 
 $(document).ready(function(){
 
-  //dynamic option creation
-  // $('.js-example-tags').select2({
-  //   tags: true
-  // });
 
+  //dynamic option creation
   $(".input_user_category").select2({
   tags: true
   });
 
 
   $('#input_submit').on('click', function(){
+
 
     let counter = $('.output_wrapper').length;
     let outputWrapper = $('<div class="row output_wrapper">');
@@ -136,6 +134,7 @@ $(document).ready(function(){
           "type" : "text",
           "class" : "form-control",
           "placeholder" : "Value",
+          "name" : "expense",
           "id" : counter + ':' + col,
           "value" : value_val.val()
         })
@@ -145,34 +144,49 @@ $(document).ready(function(){
     }
 
     $('#output_container').append(outputWrapper);
-    $('.input_user_date').val('');
+
+    date_val.val('');
+    category_val.val('');
+    description_val.val('');
+    value_val.val('');
 
     counter = counter + 1;
-    console.log('key up -2')
+
+    calculateTotalCost();
   });
 
-//submit with enter key
+
+//submit with enter key //question 1:
   $('#input_submit').keyup((event)=>{
-    if (event.keyCode === 13) {
-      //this.click();     //error but works
-      $('.btn-outline-primary').click();
-      console.log('key up -1')
+    if (event.which === 13) {
+      $('#input_submit').on('click', ()=>{
+
+      })
     }
   })
+
+
 
 });
 
 
-const calculateTotalExpense = () => {
-  let totalExpense = 0;
-  $(document).find('input[placeholder^="Value"]').each(
-    function (){
-      totalExpense += +$(this).val();
+function calculateTotalCost(){
+  var totalCost = 0;
+  $(document).find("input[name*='expense']").each(function (){
+    totalCost += +$(this).val();
   })
-  console.log(totalExpense);
+  $("input[class*='expense_all']").val(totalCost);
 }
 
-calculateTotalExpense();
+  //error occurs when write function in es6
+// const calculateTotalExpense = () => {
+//   let totalExpense = 0;
+//   $(document).find("input[name*='expense']").each(()=> {
+//     totalExpense += +$(this).val();
+//   })
+//   console.log(totalExpense);
+// }
+
 
 </script>
 
