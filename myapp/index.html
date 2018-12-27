@@ -73,6 +73,7 @@ $(document).ready(function(){
 
 
   $('#input_submit').on('click', function(){
+
     createOption();
     $('.input_user_date').focus();
 
@@ -90,7 +91,7 @@ $(document).ready(function(){
     let description_val = $('.input_user_description');
     let value_val = $('.input_user_value');
 
-    let selected_category = $("input[name*='selected_category']");
+
 
 
     for (let col = 0; col < 4; col++){
@@ -151,7 +152,8 @@ $(document).ready(function(){
     value_val.val('');
 
     calculateTotalCost();
-    isUniqueCategory(selected_category);
+    allCategory();
+    //isUniqueCategory();
   });
 
 
@@ -196,20 +198,33 @@ const createOption = () => {
 }
 
 
-let category_array = [];
+const allCategory = () => {
+  let empty_array = [];
+  $(document).find($("input[name*='selected_category']")).each(()=> {
+    empty_array.push($("input[name*='selected_category']").val());
+    console.log(empty_array);
+  })
 
-const isUniqueCategory = (element) => {
-  $(document).find(element).each(()=> {
-    //console.log(element.val());
-    //console,log('test')
-    (element.val() !== '') ? category_array.push(element.val()) : false;
+  // $(document).find($("input[name*='selected_category']")).each(()=> {
+  //   $("input[name*='selected_category']").css("color", "red");
+  //   console.log(empty_array);
+  // })
+
+
+}
+
+
+
+
+let category_array = [];
+const isUniqueCategory = () => {
+  let selected_category = $("input[name*='selected_category']");
+  $(document).find(selected_category).each(()=> {
+    (selected_category.val() !== '' ) ? category_array.push(element.val()) : false;
   });
   console.log(category_array);
 }
 
-// function isUniqueCategory () {
-//   $("input[]")
-// }
 
 
 </script>
