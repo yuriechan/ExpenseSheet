@@ -43,9 +43,9 @@
         <input type="text" class="form-control input_user_date" placeholder="Date">
       </div>
       <div class="col" id="input_category">
-        <select class="form-control input_user_category">
-          <option selected="selected">Category</option>
-        </select>
+        <datalist id="list_category">
+        </datalist>
+        <input type="text" class="form-control input_user_category" placeholder="Category" list="list_category">
       </div>
       <div class="col-4" id="input_description">
         <input type="text" class="form-control input_user_description" placeholder="Description">
@@ -72,14 +72,8 @@
 $(document).ready(function(){
 
 
-  //dynamic option creation
-  $(".input_user_category").select2({
-  tags: true
-  });
-
-
   $('#input_submit').on('click', function(){
-
+    createOption();
     $('.input_user_date').focus();
 
     let counter = $('.output_wrapper').length;
@@ -96,7 +90,8 @@ $(document).ready(function(){
     let description_val = $('.input_user_description');
     let value_val = $('.input_user_value');
 
-    category_val.val('');
+    let selected_category = $("input[name*='selected_category']");
+
 
     for (let col = 0; col < 4; col++){
       if (col =='0') {
@@ -156,6 +151,7 @@ $(document).ready(function(){
     value_val.val('');
 
     calculateTotalCost();
+    isUniqueCategory(selected_category);
   });
 
 
@@ -190,9 +186,31 @@ function calculateTotalCost(){
 //   console.log(totalExpense);
 // }
 
-// if (category_val.val() !== "Category") {
-//     category_val.val('');
-//   }
+
+const createOption = () => {
+  let input_new_option = $('.input_user_category').val();
+  let add_new_option = $('<option>', {
+    "value" : input_new_option
+  })
+  $('#list_category').append(add_new_option);
+}
+
+
+let category_array = [];
+
+const isUniqueCategory = (element) => {
+  $(document).find(element).each(()=> {
+    //console.log(element.val());
+    //console,log('test')
+    (element.val() !== '') ? category_array.push(element.val()) : false;
+  });
+  console.log(category_array);
+}
+
+// function isUniqueCategory () {
+//   $("input[]")
+// }
+
 
 </script>
 
