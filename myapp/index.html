@@ -84,7 +84,7 @@ let description_val = $('.input_user_description');
 let value_val = $('.input_user_value');
 
 let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
-
+let rendered_category = $("div[id*='category_list_']");
 
 $(document).ready(function(){
   enterKeySubmit();
@@ -96,8 +96,10 @@ $(document).ready(function(){
             clearInputField();
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
+
             //isUniqueCategory(isAllCategory());
             //createCategory(isUniqueCategory());
+            //removeDuplicateCategory(createCategory(isUniqueCategory(isAllCategory())));
           });
 
 
@@ -170,78 +172,16 @@ const createOption = () => {
   $('#list_category').append(add_new_option);
 }
 
-
-
-
-// const isAllCategory = () => {
-//
-//   let selected_category = $("input[name*='selected_category']");
-//   // let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
-//
-//
-//   let empty_array = [];
-//   for (let i = 0; i < selected_category.length; i++) {
-//     empty_array.push($(selected_category[i]).val());
-//   }
-//
-//     let isUniqueCategory = [...new Set(empty_array)];
-//     let category_counter = 0;
-//     category_counter = isUniqueCategory.length;
-//     console.log(isUniqueCategory[0])
-//
-//     let unique_category_col = $('<div>', {
-//       "class" : "input-group",
-//       "id" : "category_list_" + category_counter
-//     })
-//
-//
-//     for (let i = 0; i < category_counter + 1; i++){
-//
-//         let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
-//
-//       if (isUniqueCategory.length > 0 && unique_category_wrapper.length < 11) {
-//         let category_name_wrapper = $('<div>', {
-//           "class" : "input-group-prepend"
-//         })
-//
-//         let category_name = $('<div>', {
-//           "class" : "input-group-text",
-//           "id" : "btnGroupAddon2",
-//           "value" : isUniqueCategory[i]
-//         })
-//
-//
-//         let category_expense = $('<input>', {
-//           "type" : "text",
-//           "class" : "form-control",
-//           "placeholder" : "category total",
-//           "aria-label" : "category total",
-//           "aria-describedly" : "btnGroupAddon2"
-//           //"value" : //
-//         })
-//
-//                 unique_category_wrapper.append(unique_category_col);
-//                 category_name_wrapper.append(category_name);
-//                 unique_category_col.append(category_name_wrapper);
-//                 unique_category_col.append(category_expense);
-//
-//
-//       }
-//
-//
-//
-//       }
-//
-//
-//
-//
-// }
-
+const refreshCategory = () => {
+  $(document).find("div[id*='category_list_']").each(()=>{
+    $("div[id*='category_list_']").remove();
+  })
+}
 
 
 const createCategory = (arr) => {
-  //let category_counter = 0;
-  //console.log(arr);
+
+  refreshCategory();
   let category_counter = arr.length;
 
   if (category_counter > 0) {
@@ -275,12 +215,11 @@ const createCategory = (arr) => {
       category_col.append(category_name_wrapper);
       category_col.append(category_expense);
     }
+
   } else {
     return false;
   }
 }
-
-
 
 const isAllCategory = () => {
   let selected_category = $("input[name*='selected_category']");
