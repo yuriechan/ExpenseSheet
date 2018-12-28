@@ -68,107 +68,56 @@
 
 <script>
 
+let counter = $('.output_wrapper').length;
+let outputWrapper = $('<div class="row output_wrapper">');
+let cols = '';
+
+let first_col = $('<div class="col" id="input_date_'+ counter +'">');
+let second_col = $('<div class="col" id="input_category_'+ counter +'">');
+let third_col = $('<div class="col-6" id="input_description_'+ counter +'">');
+let fourth_col = $('<div class="col" id="input_value_'+ counter +'">');
+
+let date_val = $('.input_user_date');
+let category_val = $('.input_user_category');
+let description_val = $('.input_user_description');
+let value_val = $('.input_user_value');
+
+
 
 $(document).ready(function(){
+  enterKeySubmit();
 
+          $('#input_submit').on('click', ()=>{
 
-  $('#input_submit').on('click', function(){
+            createOption();
+            resetFocus();
+            createNewRow();
+            clearInputField();
+            calculateTotalCost();
+            isNotUniqueCategory();
 
-    createOption();
-    $('.input_user_date').focus();
+          });
 
-    let counter = $('.output_wrapper').length;
-    let outputWrapper = $('<div class="row output_wrapper">');
-    let cols = '';
-
-    let first_col = $('<div class="col" id="input_date_'+ counter +'">');
-    let second_col = $('<div class="col" id="input_category_'+ counter +'">');
-    let third_col = $('<div class="col-6" id="input_description_'+ counter +'">');
-    let fourth_col = $('<div class="col" id="input_value_'+ counter +'">');
-
-    let date_val = $('.input_user_date');
-    let category_val = $('.input_user_category');
-    let description_val = $('.input_user_description');
-    let value_val = $('.input_user_value');
-
-
-
-
-    for (let col = 0; col < 4; col++){
-      if (col =='0') {
-        let date_input = $('<input>', {
-          "type" : "text",
-          "class" : "form-control",
-          "placeholder" : "Date",
-          "id" : counter + ':' + col,
-          "value" : date_val.val()
-        })
-        first_col.append(date_input);
-        outputWrapper.append(first_col);
-      }
-      else if (col == '1') {
-        let category_input = $('<input>', {
-          "type" : "text",
-          "class" : "form-control",
-          "placeholder" : "Category",
-          "name" : "selected_category",
-          "id" : counter + ':' + col,
-          "value" : category_val.val()
-        })
-        second_col.append(category_input);
-        outputWrapper.append(second_col);
-      }
-      else if (col == '2') {
-        let description_input = $('<input>', {
-          "type" : "text",
-          "class" : "form-control",
-          "placeholder" : 'Description',
-          "id" : counter + ':' + col,
-          "value" : description_val.val()
-        })
-        third_col.append(description_input);
-        outputWrapper.append(third_col);
-      }
-      else if (col = '3') {
-        let value_input = $('<input>', {
-          "type" : "text",
-          "class" : "form-control",
-          "placeholder" : "Value",
-          "name" : "expense",
-          "id" : counter + ':' + col,
-          "value" : value_val.val()
-        })
-        fourth_col.append(value_input);
-        outputWrapper.append(fourth_col);
-      }
-    }
-
-    $('#output_container').append(outputWrapper);
-    counter = counter + 1;
-
-    date_val.val('');
-    category_val.val('');
-    description_val.val('');
-    value_val.val('');
-
-    calculateTotalCost();
-    allCategory();
-    //isUniqueCategory();
-  });
-
-
-//submit with enter key //question 1:
-  $('#input_submit').keyup((event)=>{
-    if (event.which === 13) {
-      $('#input_submit').on('click', ()=>{
-
-      })
-    }
-  })
 
 
 
 });
+
+
+
+
+
+
+
+
+// let category_array = [];
+// const isUniqueCategory = () => {
+//   let selected_category = $("input[name*='selected_category']");
+//   $(document).find(selected_category).each(()=> {
+//     (selected_category.val() !== '' ) ? category_array.push(element.val()) : false;
+//   });
+//   //console.log(category_array);
+// }
 
 
 function calculateTotalCost(){
@@ -179,14 +128,30 @@ function calculateTotalCost(){
   $("input[class*='expense_all']").val(totalCost);
 }
 
-  //error occurs when write function in es6
-// const calculateTotalExpense = () => {
-//   let totalExpense = 0;
-//   $(document).find("input[name*='expense']").each(()=> {
-//     totalExpense += +$(this).val();
+//error occurs when write function in es6
+// const calculateTotalCost = () => {
+//   let totalCost = 0;
+//   let eachExpense = $("input[name*='expense']")
+//   $(document).find("input[name*='expense']").each(() => {
+//       totalCost += +eachExpense.val();
 //   })
-//   console.log(totalExpense);
+//   // $("input[class*='expense_all']").val(totalCost);
+//   $("input[class*='expense_all']").val(totalCost);
 // }
+
+
+const resetFocus = () => {
+  $('.input_user_date').focus();
+}
+
+
+const enterKeySubmit = () => {
+  $('#input_submit').keyup((event)=>{
+    if (event.which === 13) {
+      $('#input_submit').click();
+    }
+  })
+}
 
 
 const createOption = () => {
@@ -197,34 +162,75 @@ const createOption = () => {
   $('#list_category').append(add_new_option);
 }
 
-
-const allCategory = () => {
-  let empty_array = [];
-  $(document).find($("input[name*='selected_category']")).each(()=> {
-    empty_array.push($("input[name*='selected_category']").val());
-    console.log(empty_array);
-  })
-
-  // $(document).find($("input[name*='selected_category']")).each(()=> {
-  //   $("input[name*='selected_category']").css("color", "red");
-  //   console.log(empty_array);
-  // })
-
-
-}
-
-
-
-
-let category_array = [];
-const isUniqueCategory = () => {
+const isNotUniqueCategory = () => {
   let selected_category = $("input[name*='selected_category']");
-  $(document).find(selected_category).each(()=> {
-    (selected_category.val() !== '' ) ? category_array.push(element.val()) : false;
-  });
-  console.log(category_array);
+  let empty_array = [];
+  for (let i = 0; i < selected_category.length; i++) {
+    empty_array.push($(selected_category[i]).val())
+    console.log(empty_array);
+  }
 }
 
+const clearInputField = () => {
+  date_val.val('');
+  category_val.val('');
+  description_val.val('');
+  value_val.val('');
+}
+
+const createNewRow = () => {
+  for (let col = 0; col < 4; col++){
+    if (col =='0') {
+      let date_input = $('<input>', {
+        "type" : "text",
+        "class" : "form-control",
+        "placeholder" : "Date",
+        "id" : counter + ':' + col,
+        "value" : date_val.val()
+      })
+      first_col.append(date_input);
+      outputWrapper.append(first_col);
+    }
+    else if (col == '1') {
+      let category_input = $('<input>', {
+        "type" : "text",
+        "class" : "form-control",
+        "placeholder" : "Category",
+        "name" : "selected_category",
+        "id" : counter + ':' + col,
+        "value" : category_val.val()
+      })
+      second_col.append(category_input);
+      outputWrapper.append(second_col);
+    }
+    else if (col == '2') {
+      let description_input = $('<input>', {
+        "type" : "text",
+        "class" : "form-control",
+        "placeholder" : 'Description',
+        "id" : counter + ':' + col,
+        "value" : description_val.val()
+      })
+      third_col.append(description_input);
+      outputWrapper.append(third_col);
+    }
+    else if (col = '3') {
+      let value_input = $('<input>', {
+        "type" : "text",
+        "class" : "form-control",
+        "placeholder" : "Value",
+        "name" : "expense",
+        "id" : counter + ':' + col,
+        "value" : value_val.val()
+      })
+      fourth_col.append(value_input);
+      outputWrapper.append(fourth_col);
+    }
+  }
+
+  $('#output_container').append(outputWrapper);
+  counter = counter + 1;
+}
 
 
 </script>
