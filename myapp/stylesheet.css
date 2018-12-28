@@ -1,14 +1,10 @@
 
 header {
-  height: 150px;
+  height: 7em;
 }
 
-div#calculation_container {
-    margin-top: 5%;
-}
-
-div#input_container {
-    margin-bottom: 5%;
+div#output_container {
+    margin-top: 1em;
 }
 
 .row.output_wrapper {

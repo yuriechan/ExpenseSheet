@@ -28,12 +28,19 @@
 <body>
 
   <header>
-    <div class="container" id="calculation_container">
-      <div class="row header_wrapper">
-        <div class="col-3 offset-4" id="total_expense">
-          <input type="text" class="form-control expense_all" placeholder="Total Amount">
+    <div class="container">
+          <div class="row">
+            <div class="col offset-11">
+              <button type="button" class="btn btn-outline-primary">Sign in to Google</button>
+            </div>
         </div>
-      </div>
+    </div>
+    <div class="container" id="calculation_container">
+        <div class="row header_wrapper">
+          <div class="col-3 offset-4" id="total_expense">
+            <input type="text" class="form-control expense_all" placeholder="Total Amount">
+          </div>
+        </div>
     </div>
   </header>
 
@@ -96,38 +103,10 @@ $(document).ready(function(){
             clearInputField();
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
-
-            //isUniqueCategory(isAllCategory());
-            //createCategory(isUniqueCategory());
-            //removeDuplicateCategory(createCategory(isUniqueCategory(isAllCategory())));
           });
-
-
-
 
 });
 
-
-
-
-
-
-
-
-// let category_array = [];
-// const isUniqueCategory = () => {
-//   let selected_category = $("input[name*='selected_category']");
-//   $(document).find(selected_category).each(()=> {
-//     (selected_category.val() !== '' ) ? category_array.push(element.val()) : false;
-//   });
-//   //console.log(category_array);
-// }
-
-// const isUniqueCategory = (arr) => {
-//   //let category_array = func();
-//   return arr;
-//   console.log(arr);
-// }
 
 
 function calculateTotalCost(){
