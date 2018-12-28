@@ -63,19 +63,19 @@
   <div class="container" id="output_container">
   </div>
 
+  <div class="container" id="category_output_container">
+      <div class="row category_output_wrapper">
+
+      </div>
+  </div>
+
 </body>
 
 
 <script>
 
-let counter = $('.output_wrapper').length;
-let outputWrapper = $('<div class="row output_wrapper">');
+let counter = $("div[class*='output_wrapper_']").length;
 let cols = '';
-
-let first_col = $('<div class="col" id="input_date_'+ counter +'">');
-let second_col = $('<div class="col" id="input_category_'+ counter +'">');
-let third_col = $('<div class="col-6" id="input_description_'+ counter +'">');
-let fourth_col = $('<div class="col" id="input_value_'+ counter +'">');
 
 let date_val = $('.input_user_date');
 let category_val = $('.input_user_category');
@@ -88,14 +88,13 @@ $(document).ready(function(){
   enterKeySubmit();
 
           $('#input_submit').on('click', ()=>{
-
             createOption();
             resetFocus();
             createNewRow();
             clearInputField();
             calculateTotalCost();
-            isNotUniqueCategory();
-
+            isAllCategory();
+            //isUniqueCategory(isNotUniqueCategory);
           });
 
 
@@ -117,6 +116,12 @@ $(document).ready(function(){
 //     (selected_category.val() !== '' ) ? category_array.push(element.val()) : false;
 //   });
 //   //console.log(category_array);
+// }
+
+// const isUniqueCategory = (arr) => {
+//   //let category_array = func();
+//   return arr;
+//   console.log(arr);
 // }
 
 
@@ -162,13 +167,24 @@ const createOption = () => {
   $('#list_category').append(add_new_option);
 }
 
-const isNotUniqueCategory = () => {
+const isAllCategory = () => {
   let selected_category = $("input[name*='selected_category']");
   let empty_array = [];
   for (let i = 0; i < selected_category.length; i++) {
-    empty_array.push($(selected_category[i]).val())
-    console.log(empty_array);
+    empty_array.push($(selected_category[i]).val());
+    //console.log(empty_array);
   }
+
+    //get unique category
+    console.log('this is all array ' + empty_array);
+    let isUniqueCategory = [...new Set(empty_array)];
+    console.log(isUniqueCategory);
+
+    //create input box with unique category
+    // let expense_category = $('<input>', {
+    //
+    // })
+
 }
 
 const clearInputField = () => {
@@ -179,6 +195,31 @@ const clearInputField = () => {
 }
 
 const createNewRow = () => {
+
+  let outputWrapper = $('<div>', {
+    "class" : "row output_wrapper_"+ counter
+  })
+
+  let first_col = $('<div>', {
+    "class" : "col",
+    "id" : "input_date_" + counter
+  })
+
+  let second_col = $('<div>', {
+    "class" : "col",
+    "id" : "input_category_" + counter
+  })
+
+  let third_col = $('<div>', {
+    "class" : "col-6",
+    "id" : "input_description_" + counter
+  })
+
+  let fourth_col = $('<div>', {
+    "class" : "col",
+    "id" : "input_value_" + counter
+  })
+
   for (let col = 0; col < 4; col++){
     if (col =='0') {
       let date_input = $('<input>', {
