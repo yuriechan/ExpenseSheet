@@ -63,9 +63,13 @@
   <div class="container" id="output_container">
   </div>
 
-  <div class="container" id="category_output_container">
-      <div class="row category_output_wrapper">
+  <div class="container-fluid" id="category_output_container">
+      <div class="row no-gutters justify-content-center category_output_wrapper">
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
+            <div class="input-group">
 
+            </div>
+        </div>
       </div>
   </div>
 
@@ -168,6 +172,7 @@ const createOption = () => {
 }
 
 const isAllCategory = () => {
+
   let selected_category = $("input[name*='selected_category']");
   let empty_array = [];
   for (let i = 0; i < selected_category.length; i++) {
@@ -180,10 +185,16 @@ const isAllCategory = () => {
     let isUniqueCategory = [...new Set(empty_array)];
     console.log(isUniqueCategory);
 
-    //create input box with unique category
-    // let expense_category = $('<input>', {
-    //
-    // })
+
+    //if unique category exists more than one,
+    //create wrapper, and prepend and input box with unique category
+    //assign unique id by category name or counter number 
+    let expense_category = $('<input>', {
+
+    })
+
+    //append prepend to wrapper, and input to wrapper
+
 
 }
 
