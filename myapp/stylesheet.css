@@ -30,3 +30,8 @@ span.select2-container--default .select2-selection--single .select2-selection__r
 span.select2.select2-container.select2-container--default {
   width: 130px !important;
 }
+
+div#unique_category_wrapper {
+  position: fixed;
+  bottom: 3em;
+}
