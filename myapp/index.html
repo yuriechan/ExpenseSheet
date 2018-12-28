@@ -65,10 +65,7 @@
 
   <div class="container-fluid" id="category_output_container">
       <div class="row no-gutters justify-content-center category_output_wrapper">
-        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups">
-            <div class="input-group">
-
-            </div>
+        <div class="btn-toolbar justify-content-between" role="toolbar" aria-label="Toolbar with button groups" id="unique_category_wrapper">
         </div>
       </div>
   </div>
@@ -97,8 +94,7 @@ $(document).ready(function(){
             createNewRow();
             clearInputField();
             calculateTotalCost();
-            isAllCategory();
-            //isUniqueCategory(isNotUniqueCategory);
+            isUniqueCategory(isAllCategory());
           });
 
 
@@ -174,28 +170,86 @@ const createOption = () => {
 const isAllCategory = () => {
 
   let selected_category = $("input[name*='selected_category']");
+  // let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
+
+
   let empty_array = [];
   for (let i = 0; i < selected_category.length; i++) {
     empty_array.push($(selected_category[i]).val());
-    //console.log(empty_array);
   }
 
-    //get unique category
-    console.log('this is all array ' + empty_array);
     let isUniqueCategory = [...new Set(empty_array)];
-    console.log(isUniqueCategory);
+    let category_counter = 0;
+    category_counter = isUniqueCategory.length;
+    console.log(isUniqueCategory[0])
 
-
-    //if unique category exists more than one,
-    //create wrapper, and prepend and input box with unique category
-    //assign unique id by category name or counter number 
-    let expense_category = $('<input>', {
-
+    let unique_category_col = $('<div>', {
+      "class" : "input-group",
+      "id" : "category_list_" + category_counter
     })
 
-    //append prepend to wrapper, and input to wrapper
+
+    for (let i = 0; i < category_counter + 1; i++){
+
+        let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
+
+      if (isUniqueCategory.length > 0 && unique_category_wrapper.length < 11) {
+        let category_name_wrapper = $('<div>', {
+          "class" : "input-group-prepend"
+        })
+
+        let category_name = $('<div>', {
+          "class" : "input-group-text",
+          "id" : "btnGroupAddon2",
+          "value" : isUniqueCategory[i]
+        })
 
 
+        let category_expense = $('<input>', {
+          "type" : "text",
+          "class" : "form-control",
+          "placeholder" : "category total",
+          "aria-label" : "category total",
+          "aria-describedly" : "btnGroupAddon2"
+          //"value" : //
+        })
+
+                unique_category_wrapper.append(unique_category_col);
+                category_name_wrapper.append(category_name);
+                unique_category_col.append(category_name_wrapper);
+                unique_category_col.append(category_expense);
+
+
+      }
+
+
+
+      }
+
+
+
+
+}
+
+
+
+
+
+
+
+const isAllCategory = () => {
+  let selected_category = $("input[name*='selected_category']");
+  let empty_array = [];
+  for (let i = 0; i < selected_category.length; i++) {
+    empty_array.push($(selected_category[i]).val());
+  }
+  return empty_array;
+}
+
+const isUniqueCategory = (arr) => {
+  let uniqueCategory = [...new Set(arr)];
+  console.log(uniqueCategory);
+  return uniqueCategory;
 }
 
 const clearInputField = () => {
