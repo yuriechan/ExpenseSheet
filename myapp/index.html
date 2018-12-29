@@ -56,7 +56,9 @@
           </a>
         </li>
         <!-- <div class="page-item-wrapper"> -->
+        <div id="page-wrapper">
         <li class="page-item" id="page-item-wrapper"><a class="page-link" href="javascript:void(0)">1</a></li>
+      </div>
         <!-- <li class="page-item"><a class="page-link" href="#">2</a></li> -->
         <!-- <li class="page-item"><a class="page-link" href="#">3</a></li> -->
         <!-- </div> -->
@@ -120,6 +122,8 @@ let value_val = $('.input_user_value');
 
 let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
 let rendered_category = $("div[id*='category_list_']");
+
+let pageWrapper = $('#page-wrapper');
 
 
 $(document).ready(function(){
@@ -234,7 +238,7 @@ const isAllCategory = () => {
   let selected_category = $("input[name*='selected_category']");
   let empty_array = [];
   for (let i = 0; i < selected_category.length; i++) {
-    empty_array.push($(selected_category[i]).val());
+      empty_array.push($(selected_category[i]).val());
   }
   return empty_array;
 }
@@ -255,7 +259,7 @@ const createNewRow = () => {
 
   let outputWrapper = $('<div>', {
     "class" : "row output_wrapper_"+ counter
-  })
+  }).css("margin-bottom","5px");
 
   let first_col = $('<div>', {
     "class" : "col",
@@ -331,39 +335,17 @@ const createNewRow = () => {
 }
 
 const pagination = () => {
+
   let numberOfRows = counter;
   let limitPerPage = 10;
-  let flag = 1;
 
-  $("div[class*='output_wrapper_']:gt(" + (limitPerPage - 1) + ")").hide();
+  $("div[class*='output_wrapper_']:gt(" + (limitPerPage - 2) + ")").hide();
+  let totalPages = numberOfRows / limitPerPage;
 
-  let totalPages = Math.ceil(numberOfRows / limitPerPage);
-  //console.log('total page: ' + totalPages);
-  //
-  // if (totalPages == 2) {
-  //
-  // }
-
-  for (let i = 2; i <= totalPages;){
-    console.log('before append' + i)
-    $('#page-item-wrapper').after("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + i + "</a></li>");
-    // i++;
-    console.log('after append: i => total pages :' + i + ' => ' + totalPages);
-    if (i == totalPages) {
-      break;
-    }
-    i++;
-    //break;
-
+  if (totalPages%1 == 0) {
+    let skipPageOne = totalPages + 1;
+    pageWrapper.append("<li class='page-item' id='page-item-wrapper-" + skipPageOne + "'><a class='page-link' href='javascript:void(0)'>" + skipPageOne + "</a></li>");
   }
-
-  // while (totalPages > flag) {
-  //    console.log(flag)
-  //    $('#page-item-wrapper').after("<li class='page-item'><a class='page-link' href='javascript:void(0)'>" + totalPages + "</a></li>");
-  //    flag = flag + 1;
-  //    console.log(flag)
-  //
-  // }
 
 }
 

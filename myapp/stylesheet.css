@@ -3,6 +3,10 @@ header {
   height: 7em;
 }
 
+div#page-wrapper {
+    display: flex;
+}
+
 div#output_container {
     margin-top: 1em;
 }
