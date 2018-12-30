@@ -354,23 +354,8 @@ const createNewRow = () => {
  }
 
 
-// $("li.current-page").on("click", () => {
-//   alert('hi')
-//   // if ($(this).hasClass("active")) {
-//   //   console.log('has active class')
-//   // } else {
-//   //   console.log('does not')
-//   // }
-// })
 
-// $(".active").on("click", () => {
-//
-// })
 
-// $(".active").on("click", () => {
-//   console.log('active?');
-// })
- //
  $(document).on("click", "li.current-page", function () {
 
    if ($(this).hasClass("active")) {
@@ -386,60 +371,29 @@ const createNewRow = () => {
           $("div[class*='output_wrapper_']:eq(" + i + ")").show()
       }
    }
-   // alert($(this).prevAll().length)
-   //alert($(this).parent().find(".current-page").index($(this)))
-   //alert($('.current-page').index(this))
-   //let test = $(this).index();
-
-   // var index = $(this).prevAll().length;
-   // console.log(index)
-
-   // let test = $('li.current-page').index(this);
-   // console.log(test)
-   // if ($(this).hasClass('page-item')) {
-   //   console.log('has class active')
-   //    //return false;
-   // }
-   // else {
-     // let currentPage = $('li').index($(this));
-     // console.log(currentPage)
-     // $('.current-page').removeClass("active");
-     // $(this).addClass("active");
-   // }
  })
 
 
  $("#next-page").on("click", function () {
 
-    //let currentPage = $(this).index() + 1;
     let index = $('.active').index() + 1;
-    let currentPage = Math.ceil(counter / limitPerPage);
-      alert(currentPage)
+    let totalPage = Math.ceil(counter / limitPerPage);
+      alert(totalPage)
 
-    if (index === currentPage) {
+    if (index === totalPage) {
       return false;
     } else {
-      currentPage++;
+      index++;
       $(".pagination li").removeClass("active");
       $("div[class*='output_wrapper_'").hide();
-      let grandTotal = limitPerPage * index;
+       let grandTotal = limitPerPage * index;
       for (let i = grandTotal - limitPerPage; i < grandTotal; i++){
           $("div[class*='output_wrapper_']:eq(" + i + ")").show()
       }
-      $("pagination li.current-page:eq(" + (currentPage + 1) + ")").addClass("active");
+       $("li.current-page:eq(" + (index - 1) + ")").addClass("active");
     }
  })
-// $('li.current-page').click(()=> {
-//   // let test = $('li.current-page').index(this);
-//   // console.log(test)
-//
-//   var index = $(this).prevAll().length;
-//   console.log(index)
-// })
 
- // $(document).on("click", ".active", () => {
- //   console.log($(this))
- // })
 
 
 // const calculateCategory = () => {
