@@ -48,16 +48,16 @@
 <div class="container">
     <nav aria-label="Page navigation example">
       <ul class="pagination">
-        <li class="page-item">
+        <li class="page-item" id="previous-page">
           <a class="page-link" href="javascript:void(0)" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
             <span class="sr-only">Previous</span>
           </a>
         </li>
         <div id="page-wrapper">
-        <li class="page-item active current-page"><a class="page-link" href="javascript:void(0)">1</a></li>
+        <li class="page-item current-page active"><a class="page-link" href="javascript:void(0)">1</a></li>
        </div>
-        <li class="page-item">
+        <li class="page-item" id="next-page">
           <a class="page-link" href="javascript:void(0)" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
             <span class="sr-only">Next</span>
@@ -120,7 +120,8 @@ let unique_category_wrapper = $("div[id*='unique_category_wrapper']");
 let rendered_category = $("div[id*='category_list_']");
 
 let pageWrapper = $('#page-wrapper');
-
+let limitPerPage = 10;
+//let currentPage = Math.ceil(counter / limitPerPage);
 
 $(document).ready(function(){
   enterKeySubmit();
@@ -134,6 +135,7 @@ $(document).ready(function(){
             createCategory(isUniqueCategory(isAllCategory()));
             //pagination();
             generatePagination();
+
           });
 
 });
@@ -335,16 +337,16 @@ const createNewRow = () => {
 
  const generatePagination = () => {
 
-    let numberOfRows = counter;
-    let limitPerPage = 10;
-    let currentPage = Math.ceil(numberOfRows / limitPerPage);
+    //let numberOfRows = counter;
+    // let limitPerPage = 10;
+    let totalPage = Math.ceil(counter / limitPerPage);
     let divisionVar = 1;
 
-    if (currentPage !== 1) {
+    if (totalPage !== 1) {
 
             if (counter % 10 == divisionVar) {
               divisionVar = divisionVar + 1;
-              pageWrapper.append("<li class='page-item current-page'><a class='page-link' href='javascript:void(0)'>" + currentPage + "</a></li>");
+              pageWrapper.append("<li class='page-item current-page'><a class='page-link' href='javascript:void(0)'>" + totalPage + "</a></li>");
             }
     }
 
@@ -352,14 +354,14 @@ const createNewRow = () => {
  }
 
 
-$(".current-page").on("click", () => {
-  alert($(this).index())
-  // if ($(this).hasClass("active")) {
-  //   console.log('has active class')
-  // } else {
-  //   console.log('does not')
-  // }
-})
+// $("li.current-page").on("click", () => {
+//   alert('hi')
+//   // if ($(this).hasClass("active")) {
+//   //   console.log('has active class')
+//   // } else {
+//   //   console.log('does not')
+//   // }
+// })
 
 // $(".active").on("click", () => {
 //
@@ -368,20 +370,72 @@ $(".current-page").on("click", () => {
 // $(".active").on("click", () => {
 //   console.log('active?');
 // })
-
- // $(document).on("click", ".current-page", () => {
  //
- //   if ($(this).hasClass('active')) {
- //     console.log('has class active')
- //      //return false;
- //   }
- //   // else {
- //     // let currentPage = $('li').index($(this));
- //     // console.log(currentPage)
- //     // $('.current-page').removeClass("active");
- //     // $(this).addClass("active");
- //   // }
- // })
+ $(document).on("click", "li.current-page", function () {
+
+   if ($(this).hasClass("active")) {
+     return false;
+   } else {
+     let index = $(this).index() + 1;
+     $(".pagination li").removeClass("active");
+     $(this).addClass("active");
+     $("div[class*='output_wrapper_'").hide();
+
+      let grandTotal = limitPerPage * index;
+      for (let i = grandTotal - limitPerPage; i < grandTotal; i++){
+          $("div[class*='output_wrapper_']:eq(" + i + ")").show()
+      }
+   }
+   // alert($(this).prevAll().length)
+   //alert($(this).parent().find(".current-page").index($(this)))
+   //alert($('.current-page').index(this))
+   //let test = $(this).index();
+
+   // var index = $(this).prevAll().length;
+   // console.log(index)
+
+   // let test = $('li.current-page').index(this);
+   // console.log(test)
+   // if ($(this).hasClass('page-item')) {
+   //   console.log('has class active')
+   //    //return false;
+   // }
+   // else {
+     // let currentPage = $('li').index($(this));
+     // console.log(currentPage)
+     // $('.current-page').removeClass("active");
+     // $(this).addClass("active");
+   // }
+ })
+
+
+ $("#next-page").on("click", function () {
+
+    //let currentPage = $(this).index() + 1;
+    let index = $('.active').index() + 1;
+    let currentPage = Math.ceil(counter / limitPerPage);
+      alert(currentPage)
+
+    if (index === currentPage) {
+      return false;
+    } else {
+      currentPage++;
+      $(".pagination li").removeClass("active");
+      $("div[class*='output_wrapper_'").hide();
+      let grandTotal = limitPerPage * index;
+      for (let i = grandTotal - limitPerPage; i < grandTotal; i++){
+          $("div[class*='output_wrapper_']:eq(" + i + ")").show()
+      }
+      $("pagination li.current-page:eq(" + (currentPage + 1) + ")").addClass("active");
+    }
+ })
+// $('li.current-page').click(()=> {
+//   // let test = $('li.current-page').index(this);
+//   // console.log(test)
+//
+//   var index = $(this).prevAll().length;
+//   console.log(index)
+// })
 
  // $(document).on("click", ".active", () => {
  //   console.log($(this))
