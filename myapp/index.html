@@ -133,7 +133,6 @@ $(document).ready(function(){
             clearInputField();
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
-            //pagination();
             generatePagination();
 
           });
@@ -149,17 +148,6 @@ function calculateTotalCost(){
   })
   $("input[class*='expense_all']").val(totalCost);
 }
-
-//error occurs when write function in es6
-// const calculateTotalCost = () => {
-//   let totalCost = 0;
-//   let eachExpense = $("input[name*='expense']")
-//   $(document).find("input[name*='expense']").each(() => {
-//       totalCost += +eachExpense.val();
-//   })
-//   // $("input[class*='expense_all']").val(totalCost);
-//   $("input[class*='expense_all']").val(totalCost);
-// }
 
 
 const resetFocus = () => {
