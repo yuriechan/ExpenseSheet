@@ -378,7 +378,6 @@ const createNewRow = () => {
 
     let index = $('.active').index() + 1;
     let totalPage = Math.ceil(counter / limitPerPage);
-      alert(totalPage)
 
     if (index === totalPage) {
       return false;
@@ -394,6 +393,24 @@ const createNewRow = () => {
     }
  })
 
+$("#previous-page").on("click", function () {
+
+   let index = $('.active').index() + 1;
+   let totalPage = Math.ceil(counter / limitPerPage);
+
+   if (index === 1) {
+     return false;
+   } else {
+     index--;
+     $(".pagination li").removeClass("active");
+     $("div[class*='output_wrapper_'").hide();
+      let grandTotal = limitPerPage * index;
+     for (let i = grandTotal - limitPerPage; i < grandTotal; i++){
+         $("div[class*='output_wrapper_']:eq(" + i + ")").show()
+     }
+      $("li.current-page:eq(" + (index - 1) + ")").addClass("active");
+   }
+})
 
 
 // const calculateCategory = () => {
