@@ -332,53 +332,60 @@ const createNewRow = () => {
   counter = counter + 1;
 }
 
-// const pagination = () => {
-//
-//   let numberOfRows = counter;
-//   let limitPerPage = 10;
-//
-//   $("div[class*='output_wrapper_']:gt(" + (limitPerPage - 1) + ")").hide();
-//
-//   let totalPages = numberOfRows / limitPerPage;
-//
-//   if (totalPages%1 == 0) {
-//     let skipPageOne = totalPages + 1;
-//     pageWrapper.append("<li class='page-item current-page'><a class='page-link' href='javascript:void(0)'>" + skipPageOne + "</a></li>");
-//   }
-//
-//
-//
-// }
-//
-//
+
  const generatePagination = () => {
 
     let numberOfRows = counter;
     let limitPerPage = 10;
     let currentPage = Math.ceil(numberOfRows / limitPerPage);
-    let flag = 1;
+    let divisionVar = 1;
 
     if (currentPage !== 1) {
 
-            if (counter % 10 == flag) {
-              flag = flag + 1;
+            if (counter % 10 == divisionVar) {
+              divisionVar = divisionVar + 1;
               pageWrapper.append("<li class='page-item current-page'><a class='page-link' href='javascript:void(0)'>" + currentPage + "</a></li>");
             }
-
     }
 
     $("div[class*='output_wrapper_']:gt(" + (limitPerPage - 1) + ")").hide();
  }
 
 
- $(document).on("click", "li.current-page", ()=> {
+$(".current-page").on("click", () => {
+  alert($(this).index())
+  // if ($(this).hasClass("active")) {
+  //   console.log('has active class')
+  // } else {
+  //   console.log('does not')
+  // }
+})
 
-   let currentPage = $('li.current-page').index(this);
-   alert(currentPage)
-   $('.current-page').removeClass("active");
-   $(this).addClass("active");
+// $(".active").on("click", () => {
+//
+// })
 
- })
+// $(".active").on("click", () => {
+//   console.log('active?');
+// })
+
+ // $(document).on("click", ".current-page", () => {
+ //
+ //   if ($(this).hasClass('active')) {
+ //     console.log('has class active')
+ //      //return false;
+ //   }
+ //   // else {
+ //     // let currentPage = $('li').index($(this));
+ //     // console.log(currentPage)
+ //     // $('.current-page').removeClass("active");
+ //     // $(this).addClass("active");
+ //   // }
+ // })
+
+ // $(document).on("click", ".active", () => {
+ //   console.log($(this))
+ // })
 
 
 // const calculateCategory = () => {
