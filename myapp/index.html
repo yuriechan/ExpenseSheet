@@ -21,9 +21,14 @@
   <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
   <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
   <!-- Select2 4.0.6 -->
-  <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script>
-
+  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
+  <!-- google sheets api  -->
+  <script src="api.js" type="text/javascript"></script>
+  <script async defer src="https://apis.google.com/js/api.js"
+    onload="this.onload=function(){};handleClientLoad()"
+    onreadystatechange="if (this.readyState === 'complete') this.onload()">
+  </script>
 
 </head>
 <body>
@@ -31,7 +36,7 @@
     <div class="container">
           <div class="row">
             <div class="col offset-11">
-              <button type="button" class="btn btn-outline-primary">Sign in to Google</button>
+              <button type="button" class="btn btn-outline-primary" id="signin-button" onclick="handleSignInClick()">Sign in to Google</button>
             </div>
         </div>
     </div>
