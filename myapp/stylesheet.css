@@ -1,0 +1,37 @@
+
+header {
+  height: 7em;
+}
+
+div#page-wrapper {
+    display: flex;
+}
+
+div#output_container {
+    margin-top: 1em;
+}
+
+.row.output_wrapper {
+    margin-bottom: 1%;
+}
+
+.input_box {
+  display: inline;
+}
+
+span.select2-container .select2-selection--single {
+  height: 38px;
+}
+
+span.select2-container--default .select2-selection--single .select2-selection__rendered {
+  line-height: 36px;
+}
+
+span.select2.select2-container.select2-container--default {
+  width: 130px !important;
+}
+
+div#unique_category_wrapper {
+  position: fixed;
+  bottom: 3em;
+}
