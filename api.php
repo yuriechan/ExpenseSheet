@@ -1,4 +1,4 @@
-
+<script>
     function makeApiCall() {
        // TODO: Update placeholder with google spreadsheet ID.
       var ssID = '';
@@ -66,3 +66,5 @@
     function handleSignOutClick(event) {
       gapi.auth2.getAuthInstance().signOut();
     }
+
+</script>
