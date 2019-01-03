@@ -1,3 +1,10 @@
+<?php
+include 'dbh.php';
+?>
+
+
+
+
 <!DOCTYPE html>
 <html>
 <head>
@@ -91,6 +98,14 @@
 
 
   <div class="container" id="output_container">
+    <?php
+    $sql = "SELECT * FROM expenses LIMIT 5";
+    $result = mysqli_query($sql);
+    if (mysqli_num_row($result) > 0)
+    while ($row = mysqli_fetch_assoc($result)) {
+      echo 
+    }
+    ?>
   </div>
 
   <div class="container-fluid" id="category_output_container">
