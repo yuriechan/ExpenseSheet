@@ -132,11 +132,13 @@ $(document).ready(function(){
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
             generatePagination();
+            //console.log('one')
 
             $("input").change(function() {
               calculateTotalCost();
               createCategory(isUniqueCategory(isAllCategory()));
               generatePagination();
+              //console.log('two')
             })
 
           });
@@ -427,6 +429,12 @@ $("#previous-page").on("click", function () {
 //     //assign value to category element
 //     totalCategory = 0;
 // }
+
+// find each element with category value
+// and check with each arr
+// if value is same, keep on adding.
+// iterate until the end of the array
+// assign to element id with same value of array
 
 </script>
 </html>
