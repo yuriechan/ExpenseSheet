@@ -118,6 +118,7 @@ let rendered_category = $("div[id*='category_list_']");
 
 let pageWrapper = $('#page-wrapper');
 let limitPerPage = 10;
+let selected_category = $("input[name*='selected_category']");
 //let currentPage = Math.ceil(counter / limitPerPage);
 
 $(document).ready(function(){
@@ -180,13 +181,16 @@ const createCategory = (arr) => {
   refreshCategory();
   let category_counter = arr.length;
 
+  // let array_index = arr.indexOf(array[i])
+  // console.log(array_index)
+
   if (category_counter > 0) {
 
     for (let i = 0; i < category_counter; i++) {
 
       let category_col = $('<div>', {
         "class" : "input-group",
-        "id" : "category_list_" + category_counter
+        "id" : "category_list_" + i
       })
 
       let category_name_wrapper = $('<div>', {
@@ -232,6 +236,7 @@ const isAllCategory = () => {
 
 const isUniqueCategory = (arr) => {
   let uniqueCategory = [...new Set(arr)];
+  console.log(uniqueCategory)
   return uniqueCategory;
 }
 
@@ -400,8 +405,17 @@ $("#previous-page").on("click", function () {
 })
 
 
-// const calculateCategory = () => {
-//
+// const calculateCategory = (arr) => {
+//   let totalCategory = 0;
+//     for (let i = 0; i < arr.length; i++){
+//       for (let m = 0; m < counter; m++){
+//         if (arr[i] == $(selected_category[m]).val()){
+//           totalCategory += +$(selected_category[m]).val();
+//         }
+//       }
+//     }
+//     //assign value to category element
+//     totalCategory = 0;
 // }
 
 </script>
