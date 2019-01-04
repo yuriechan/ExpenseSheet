@@ -132,7 +132,20 @@ $(document).ready(function(){
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
             generatePagination();
+
+            $("input").change(function() {
+              console.log('chanegd')
+            })
+
           });
+
+          // $("input").change(function() {
+          //   console.log('chanegd')
+          // })
+          // $(input).on('change', function() {
+          //   console.log('chanegd')
+          // })
+
 
 });
 
@@ -207,7 +220,8 @@ const createCategory = (arr) => {
         "class" : "form-control",
         "placeholder" : "category total",
         "aria-label" : "category total",
-        "aria-describedly" : "btnGroupAddon2"
+        "aria-describedly" : "btnGroupAddon2",
+        "id" : arr[i]
       })
 
       unique_category_wrapper.append(category_col);
