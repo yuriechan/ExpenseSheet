@@ -134,17 +134,12 @@ $(document).ready(function(){
             generatePagination();
 
             $("input").change(function() {
-              console.log('chanegd')
+              calculateTotalCost();
+              createCategory(isUniqueCategory(isAllCategory()));
+              generatePagination();
             })
 
           });
-
-          // $("input").change(function() {
-          //   console.log('chanegd')
-          // })
-          // $(input).on('change', function() {
-          //   console.log('chanegd')
-          // })
 
 
 });
@@ -157,6 +152,7 @@ function calculateTotalCost(){
     totalCost += +$(this).val();
   })
   $("input[class*='expense_all']").val(totalCost);
+  console.log(totalCost)
 }
 
 
