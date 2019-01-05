@@ -131,12 +131,14 @@ $(document).ready(function(){
             clearInputField();
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
+            calculateCategory(isUniqueCategory(isAllCategory()));
             generatePagination();
             //console.log('one')
 
             $("input").change(function() {
               calculateTotalCost();
               createCategory(isUniqueCategory(isAllCategory()));
+              calculateCategory(isUniqueCategory(isAllCategory()));
               generatePagination();
               //console.log('two')
             })
@@ -154,7 +156,7 @@ function calculateTotalCost(){
     totalCost += +$(this).val();
   })
   $("input[class*='expense_all']").val(totalCost);
-  console.log(totalCost)
+  //console.log(totalCost)
 }
 
 
@@ -248,7 +250,7 @@ const isAllCategory = () => {
 
 const isUniqueCategory = (arr) => {
   let uniqueCategory = [...new Set(arr)];
-  console.log(uniqueCategory)
+  //console.log(uniqueCategory)
   return uniqueCategory;
 }
 
@@ -417,24 +419,19 @@ $("#previous-page").on("click", function () {
 })
 
 
-// const calculateCategory = (arr) => {
-//   let totalCategory = 0;
-//     for (let i = 0; i < arr.length; i++){
-//       for (let m = 0; m < counter; m++){
-//         if (arr[i] == $(selected_category[m]).val()){
-//           totalCategory += +$(selected_category[m]).val();
-//         }
-//       }
-//     }
-//     //assign value to category element
-//     totalCategory = 0;
-// }
+const calculateCategory = (arr) => {
+  let totalCategory = 0;
 
-// find each element with category value
-// and check with each arr
-// if value is same, keep on adding.
-// iterate until the end of the array
-// assign to element id with same value of array
+    for (let i = 0; i < arr.length; i++){
+      for (let m = 0; m < counter; m++){
+        if (arr[i] == $("input[id='" + m + ":1']").val()){
+          totalCategory += +$("input[id='" + m + ":3']").val();
+        }
+      }
+      $("#" + arr[i] + "").val(totalCategory);
+      totalCategory = 0;
+    }
+}
 
 </script>
 </html>
