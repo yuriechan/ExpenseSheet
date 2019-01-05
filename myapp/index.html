@@ -8,8 +8,6 @@
   <title>Expense Sheet</title>
   <link rel="stylesheet" href="stylesheet.css">
   <link rel="shortcut icon" href="#">
-  <!-- google API -->
-  <!-- <script src = "https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
   <!-- Bootstrap css 4.0.0 -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
   <!-- jQuery 3.2.1 -->
@@ -18,18 +16,12 @@
   <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
   <!-- Bootstrap js 4.0.0 -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
-  <!-- jQuery UI 1.12.1 -->
-  <!-- <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
-  <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script> -->
-  <!-- Select2 4.0.6 -->
-  <!-- <link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet">
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/js/select2.min.js"></script> -->
   <!-- google sheets api  -->
   <script src="api.js" type="text/javascript"></script>
-  <script async defer src="https://apis.google.com/js/api.js"
+  <!-- <script async defer src="https://apis.google.com/js/api.js"
     onload="this.onload=function(){};handleClientLoad()"
     onreadystatechange="if (this.readyState === 'complete') this.onload()">
-  </script>
+  </script> -->
 
 </head>
 <body>
@@ -126,6 +118,7 @@ let rendered_category = $("div[id*='category_list_']");
 
 let pageWrapper = $('#page-wrapper');
 let limitPerPage = 10;
+let selected_category = $("input[name*='selected_category']");
 //let currentPage = Math.ceil(counter / limitPerPage);
 
 $(document).ready(function(){
@@ -138,9 +131,20 @@ $(document).ready(function(){
             clearInputField();
             calculateTotalCost();
             createCategory(isUniqueCategory(isAllCategory()));
+            calculateCategory(isUniqueCategory(isAllCategory()));
             generatePagination();
+            //console.log('one')
+
+            $("input").change(function() {
+              calculateTotalCost();
+              createCategory(isUniqueCategory(isAllCategory()));
+              calculateCategory(isUniqueCategory(isAllCategory()));
+              generatePagination();
+              //console.log('two')
+            })
 
           });
+
 
 });
 
@@ -152,6 +156,7 @@ function calculateTotalCost(){
     totalCost += +$(this).val();
   })
   $("input[class*='expense_all']").val(totalCost);
+  //console.log(totalCost)
 }
 
 
@@ -189,13 +194,16 @@ const createCategory = (arr) => {
   refreshCategory();
   let category_counter = arr.length;
 
+  // let array_index = arr.indexOf(array[i])
+  // console.log(array_index)
+
   if (category_counter > 0) {
 
     for (let i = 0; i < category_counter; i++) {
 
       let category_col = $('<div>', {
         "class" : "input-group",
-        "id" : "category_list_" + category_counter
+        "id" : "category_list_" + i
       })
 
       let category_name_wrapper = $('<div>', {
@@ -212,7 +220,8 @@ const createCategory = (arr) => {
         "class" : "form-control",
         "placeholder" : "category total",
         "aria-label" : "category total",
-        "aria-describedly" : "btnGroupAddon2"
+        "aria-describedly" : "btnGroupAddon2",
+        "id" : arr[i]
       })
 
       unique_category_wrapper.append(category_col);
@@ -227,17 +236,21 @@ const createCategory = (arr) => {
 }
 
 const isAllCategory = () => {
-  let selected_category = $("input[name*='selected_category']");
-  let empty_array = [];
 
-  for (let i = 0; i < selected_category.length; i++) {
-        empty_array.push($(selected_category[i]).val());
-  }
-  return empty_array;
+        let selected_category = $("input[name*='selected_category']");
+        let empty_array = [];
+
+        for (let i = 0; i < selected_category.length; i++) {
+              if ($(selected_category[i]).val() !== ""){
+                empty_array.push($(selected_category[i]).val());
+               }
+        }
+        return empty_array;
 }
 
 const isUniqueCategory = (arr) => {
   let uniqueCategory = [...new Set(arr)];
+  //console.log(uniqueCategory)
   return uniqueCategory;
 }
 
@@ -406,9 +419,19 @@ $("#previous-page").on("click", function () {
 })
 
 
-// const calculateCategory = () => {
-//
-// }
+const calculateCategory = (arr) => {
+  let totalCategory = 0;
+
+    for (let i = 0; i < arr.length; i++){
+      for (let m = 0; m < counter; m++){
+        if (arr[i] == $("input[id='" + m + ":1']").val()){
+          totalCategory += +$("input[id='" + m + ":3']").val();
+        }
+      }
+      $("#" + arr[i] + "").val(totalCategory);
+      totalCategory = 0;
+    }
+}
 
 </script>
 </html>
