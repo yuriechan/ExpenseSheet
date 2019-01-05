@@ -1,10 +1,3 @@
-<?php
-include 'dbh.php';
-?>
-
-
-
-
 <!DOCTYPE html>
 <html>
 <head>
@@ -24,11 +17,12 @@ include 'dbh.php';
   <!-- Bootstrap js 4.0.0 -->
   <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
   <!-- google sheets api  -->
-  <script src="api.js" type="text/javascript"></script>
-  <script async defer src="https://apis.google.com/js/api.js"
+  <!-- <script src="api.php" type="text/javascript"></script> -->
+  <?php require('api.php')?>
+  <!-- <script async defer src="https://apis.google.com/js/api.js"
     onload="this.onload=function(){};handleClientLoad()"
     onreadystatechange="if (this.readyState === 'complete') this.onload()">
-  </script>
+  </script> -->
 
 </head>
 <body>
@@ -74,47 +68,32 @@ include 'dbh.php';
 
 
 
+<form action="include/expense.inc.php" method="POST">
   <div class="container" id="input_container">
     <div class="row input_wrapper">
       <div class="col" id="input_date">
-        <input type="text" class="form-control input_user_date" placeholder="Date">
+        <input type="text" class="form-control input_user_date" placeholder="Date" name="date">
       </div>
       <div class="col" id="input_category">
         <datalist id="list_category">
         </datalist>
-        <input type="text" class="form-control input_user_category" placeholder="Category" list="list_category">
+        <input type="text" class="form-control input_user_category" placeholder="Category" list="list_category" name="category">
       </div>
       <div class="col-4" id="input_description">
-        <input type="text" class="form-control input_user_description" placeholder="Description">
+        <input type="text" class="form-control input_user_description" placeholder="Description" name="description">
       </div>
       <div class="col" id="input_value">
-        <input type="text" class="form-control input_user_value" placeholder="Value">
+        <input type="text" class="form-control input_user_value" placeholder="Value" name="price">
       </div>
       <div class="col" id="input_submit">
-        <button type="button" class="btn btn-outline-primary">Submit</button>
+        <button type="submit" class="btn btn-outline-primary" name="submit">Submit</button>
       </div>
     </div>
   </div>
+</form>
 
 
   <div class="container" id="output_container">
-    <?php
-        $sql = "SELECT * FROM expenses LIMIT 3";
-        $result = mysqli_query($conn, $sql);
-        if (mysqli_num_rows($result) > 0) {
-          while ($row = mysqli_fetch_assoc($result)){
-            echo "<p>";
-            echo $row['date'];
-            echo $row['category'];
-            echo $row['description'];
-            echo $row['price'];
-            echo "</p>";
-          }
-        } else {
-          echo "There are no data!";
-        }
-  ?>
-  <!-- comment -->
   </div>
 
   <div class="container-fluid" id="category_output_container">
