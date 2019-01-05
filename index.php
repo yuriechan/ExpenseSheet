@@ -99,13 +99,22 @@ include 'dbh.php';
 
   <div class="container" id="output_container">
     <?php
-    $sql = "SELECT * FROM expenses LIMIT 5";
-    $result = mysqli_query($sql);
-    if (mysqli_num_row($result) > 0)
-    while ($row = mysqli_fetch_assoc($result)) {
-      echo 
-    }
-    ?>
+        $sql = "SELECT * FROM expenses LIMIT 3";
+        $result = mysqli_query($conn, $sql);
+        if (mysqli_num_rows($result) > 0) {
+          while ($row = mysqli_fetch_assoc($result)){
+            echo "<p>";
+            echo $row['date'];
+            echo $row['category'];
+            echo $row['description'];
+            echo $row['price'];
+            echo "</p>";
+          }
+        } else {
+          echo "There are no data!";
+        }
+  ?>
+  <!-- comment -->
   </div>
 
   <div class="container-fluid" id="category_output_container">
